@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
+using Git_Gud_At_Math.Exceptions;
 using Git_Gud_At_Math.Models;
 using Git_Gud_At_Math.Utilities;
 using ValueType = Git_Gud_At_Math.Models.ValueType;
@@ -40,38 +41,53 @@ namespace Git_Gud_At_Math.Controls
         /// <param name="rootNode">The start/root node of the tree</param>
         public static void ParseStringToTree(string input, TreeNode rootNode = null)
         {
-            if (rootNode == null)
-                rootNode = new TreeNode("Root", ValueType.Unknown);
-
-            Match match = RegexFunction.Match(input);
-
-            if (match.Success)
+            try
             {
-                var mathOperator = match.Groups[1].Value;
-                var mainFunction = match.Groups[2].Value;
+                if (rootNode == null)
+                    rootNode = new TreeNode("Root", ValueType.Unknown);
 
-                TreeNode newOperatorNode = new TreeNode(mathOperator, ValueType.Operator);
-                rootNode.Add(newOperatorNode);
+                Match match = RegexFunction.Match(input);
 
-                List<string> arguments = SplitString(mainFunction, ',');
-
-                foreach (var argument in arguments)
+                if (match.Success)
                 {
-                    Debug.OutPut(argument);
-                    ParseStringToTree(argument, newOperatorNode);
+                    var mathOperator = match.Groups[1].Value;
+                    var mainFunction = match.Groups[2].Value;
+
+                    TreeNode newOperatorNode = new TreeNode(mathOperator, ValueType.Operator);
+                    rootNode.Add(newOperatorNode);
+
+                    List<string> arguments = SplitString(mainFunction, ',');
+
+                    foreach (var argument in arguments)
+                    {
+                        Debug.OutPut(argument);
+                        ParseStringToTree(argument, newOperatorNode);
+                    }
+                }
+                else
+                {
+                    List<string> arguments = SplitString(input, ',');
+
+                    foreach (var argument in arguments)
+                    {
+                        rootNode.Add(IsVariable(argument)
+                            ? new TreeNode(argument, ValueType.Variable)
+                            : new TreeNode(argument, ValueType.Constant));
+                    }
                 }
             }
-            else
+            catch (UnparseableString e)
             {
-                List<string> arguments = SplitString(input, ',');
-
-                foreach (var argument in arguments)
-                {
-                    rootNode.Add(IsVariable(argument)
-                        ? new TreeNode(argument, ValueType.Variable)
-                        : new TreeNode(argument, ValueType.Constant));
-                }
+                e.Print();
+                throw;
             }
+            catch (Exception)
+            {
+                Debug.OutPutError("Something unexpected happened and we are not " +
+                                  "able to parse the string / function");
+                throw;
+            }
+          
         }
 
         /// <summary>
@@ -114,7 +130,7 @@ namespace Git_Gud_At_Math.Controls
                     bracketsLevel--;
                     if (bracketsLevel < 0)
                     {
-                        throw new ArgumentException();
+                        throw new UnparseableString("Unable to parse the string", text);
                     }
                 }
                 else if (text[i] == splitter)

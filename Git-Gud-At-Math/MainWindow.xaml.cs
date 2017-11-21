@@ -30,28 +30,36 @@ namespace Git_Gud_At_Math
 
             var variables = new Dictionary<string, string>
             {
-                {"x", "1"},
-                {"y", "4"}
+                {"x", "4"},
+                {"y", "5"}
             };
 
 
-            string toParse = @"/(*(-(x,3),+(c(n(-73)),r(1.6))),e(!(5)))";
+            //string toParse = @"/(*(-(x,3),+(c(n(-73)),r(1.6))),e(!(5)))";
 
-            TreeNode parsedTree = new TreeNode("Root", ValueType.Unknown);
-            Parser.ParseStringToTree(toParse, parsedTree);
+            //TreeNode parsedTree = new TreeNode("Root", ValueType.Unknown);
+            //Parser.ParseStringToTree(toParse, parsedTree);
 
-            Debug.OutPutAttention("TO PARSE: " + toParse);
-            Debug.PrintTree(parsedTree);
+            //Debug.OutPutAttention("TO PARSE: " + toParse);
+            //Debug.PrintTree(parsedTree);
 
-            Calculator.EvaluateFunctionTree(parsedTree, variables);
+            //Calculator.EvaluateFunctionTree(parsedTree, variables);
 
             // ==============
 
-            //string parse2 = @"-(+(x,1),*(x,3))";
-            //TreeNode parsedTree2 = new TreeNode("Root", ValueType.Unknown);
-            //Parser.ParseStringToTree(parse2, parsedTree2);
+            string parse2 = @"/(-(+(x,1),*(x,3)),^(x,2))";
+            string parse3 = @"*(^(x,2),!(5))";
 
-            //Calculator.EvaluateFunctionTree(parsedTree2, variables);
+            string sin = @"^(x,2)";
+            TreeNode parsedTree2 = new TreeNode("Root", ValueType.Unknown);
+            Parser.ParseStringToTree(sin, parsedTree2);
+
+            var points = Calculator.EvaluateFunctionTreeBetween(parsedTree2, variables,"x",0,10,4);
+
+            foreach (var point in points)
+            {
+                Console.WriteLine(point);
+            }
         }
     }
 }

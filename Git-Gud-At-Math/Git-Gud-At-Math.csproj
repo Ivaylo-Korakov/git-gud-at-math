@@ -62,6 +62,9 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Controls\Calculator.cs" />
+    <Compile Include="Exceptions\IncorrectNodeTreeFormat.cs" />
+    <Compile Include="Exceptions\UnableToCalculateExpressions.cs" />
+    <Compile Include="Exceptions\UnparseableString.cs" />
     <Compile Include="Utilities\Debug.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>

@@ -42,7 +42,7 @@ namespace Git_Gud_At_Math.Models
         /// <param name="value">The value that this TreeNode holds</param>
         /// <param name="typeOfValue">The type of the value that this TreeNode holds</param>
         /// <param name="parent">The parent of the newly created node (Optional)</param>
-        public TreeNode(string value,ValueType typeOfValue)
+        public TreeNode(string value, ValueType typeOfValue)
         {
             // init
             this.Value = value;
@@ -74,7 +74,22 @@ namespace Git_Gud_At_Math.Models
         {
             return this.Children.First(a => a.Value == value);
         }
-        
+
+        public TreeNode Clone()
+        {
+            TreeNode newNode = new TreeNode(this.Value, this.TypeOfValue);
+
+            if (this.Children.Count > 0)
+            {
+                foreach (var child in this.Children)
+                {
+                    newNode.Children.Add(child.Clone());
+                }
+            }
+
+            return newNode;
+        }
+
         /// <summary>
         /// This is for ease of use
         /// </summary>
