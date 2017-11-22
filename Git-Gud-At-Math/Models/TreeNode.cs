@@ -75,6 +75,17 @@ namespace Git_Gud_At_Math.Models
             return this.Children.First(a => a.Value == value);
         }
 
+        /// <summary>
+        /// Because of the nature of objects in C# they pass by reference
+        /// In some parts of the core logic we are altering the tree structure
+        /// but we also need the original.
+        /// The clone functionality will help with that.
+        /// ==============================================
+        /// Transfer the information of the current node into a new one
+        /// If there are children do the same for them and
+        /// add the cloned children to the new node and return it.
+        /// </summary>
+        /// <returns>The start node of the new / same tree</returns>
         public TreeNode Clone()
         {
             TreeNode newNode = new TreeNode(this.Value, this.TypeOfValue);

@@ -62,6 +62,8 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Controls\Calculator.cs" />
+    <Compile Include="Controls\Views\MainViewController.cs" />
+    <Compile Include="Drawing\Painter.cs" />
     <Compile Include="Exceptions\IncorrectNodeTreeFormat.cs" />
     <Compile Include="Exceptions\UnableToCalculateExpressions.cs" />
     <Compile Include="Exceptions\UnparseableString.cs" />
@@ -110,8 +112,6 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Drawing\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -87,7 +87,6 @@ namespace Git_Gud_At_Math.Controls
                                   "able to parse the string / function");
                 throw;
             }
-          
         }
 
         /// <summary>
@@ -115,9 +114,9 @@ namespace Git_Gud_At_Math.Controls
         /// <returns>A list of all the substrings</returns>
         public static List<string> SplitString(string text, char splitter)
         {
-            var substrings = new List<string>();
             var bracketsLevel = 0;
             var lastPosition = 0;
+            var substrings = new List<string>();
             
             for (var i = 0; i != text.Length; i++)
             {

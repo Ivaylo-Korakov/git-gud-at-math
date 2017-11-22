@@ -36,7 +36,15 @@ namespace Git_Gud_At_Math.Controls
         };
         #endregion
 
-
+        /// <summary>
+        /// This method calculates the value of a function and given variables
+        /// 1. Replaces the variables with their numeric values
+        /// 2. Passes the variable free tree to the CalculateTree method which does
+        ///    the heavy lifting of actually calculating the tree
+        /// </summary>
+        /// <param name="startNodeOfTree">The start of the tree</param>
+        /// <param name="variables">The variables to evaluate for</param>
+        /// <returns>The result of the function</returns>
         #region Methods / Logic
         public static double EvaluateFunctionTree(TreeNode startNodeOfTree, Dictionary<string, string> variables)
         {
@@ -101,6 +109,15 @@ namespace Git_Gud_At_Math.Controls
             return points;
         }
 
+        /// <summary>
+        /// With the use of recursion this method goes down the tree structure
+        /// until it reaches a simple tree (tree with to levels).
+        /// When it goes to a simple tree it invokes the CalculateSimpleNodeTree function
+        /// then gets the result of this simple tree and goes up again.
+        /// Goes to the bottom and then step by step climbs back up to the root node
+        /// </summary>
+        /// <param name="node">The starting point of the tree (tree without variables)</param>
+        /// <returns>The result from calculating the tree</returns>
         public static double CalculateTree(TreeNode node)
         {
             try
@@ -133,20 +150,35 @@ namespace Git_Gud_At_Math.Controls
                     return result;
                 }
             }
+            catch (UnableToCalculateExpressions e)
+            {
+                throw;
+            }
             catch (Exception)
             {
-                throw new UnableToCalculateExpressions("Unable to calculate the parsed tree from the input string");
+                string incorectString = node.Value;
+                throw new UnableToCalculateExpressions("Unable to calculate the parsed tree from the input string", incorectString);
             }
         }
 
-        public static double CalculateSimpleNodeTree(TreeNode node)
+        /// <summary>
+        /// This methods calculates a tree which has children but those children don't
+        /// AKA 2 level tree
+        /// Level 1:
+        /// Operator node
+        /// Level 2:
+        /// Constant nodes
+        /// </summary>
+        /// <param name="node">The start node of the tree</param>
+        /// <returns>The total value of the calculate tree</returns>
+        private static double CalculateSimpleNodeTree(TreeNode node)
         {
             double result = 0;
 
+            List<double> values = new List<double>();
             try
             {
                 // Parse values into doubles
-                List<double> values = new List<double>();
                 foreach (var childNode in node.Children)
                 {
                     values.Add(double.Parse(childNode.Value));
@@ -160,13 +192,23 @@ namespace Git_Gud_At_Math.Controls
             }
             catch (Exception)
             {
-                throw new UnableToCalculateExpressions("Unable to calculate the parsed tree from the input string");
+                string incorectString = node.Value + " ( " + string.Join(",",node.Children) + " )";
+                throw new UnableToCalculateExpressions("Unable to calculate the parsed tree from the input string", incorectString);
             }
 
             return result;
         }
 
-        public static void ReplaceVariables(TreeNode node, Dictionary<string, string> variables)
+        /// <summary>
+        /// With the use of recursion it goes down the tree and
+        /// when it sees a node which has a type of value ==  variable
+        /// it checks if it has a value for that variable and if so
+        /// replaces the node value with a numeric value and sets the 
+        /// type of value to a constant so it does not do it again when it sees the node
+        /// </summary>
+        /// <param name="node">The start node of the tree</param>
+        /// <param name="variables">The variables and their values that you want to replace</param>
+        private static void ReplaceVariables(TreeNode node, Dictionary<string, string> variables)
         {
             try
             {
@@ -195,6 +237,15 @@ namespace Git_Gud_At_Math.Controls
         }
         #endregion
 
+        /// <summary>
+        /// This region contains all the basic mathematic functions 
+        /// All of them have the same signature.
+        /// If you need to add a basic math function you need to create 
+        /// a new method here that does the operation before you add it
+        /// to the operations dictionary
+        /// </summary>
+        /// <param name="arguments">The values needed to perform the operation</param>
+        /// <returns>The result of the operation</returns>
         #region Math Operations
         public static double NaturalNumber(List<double> arguments)
         {

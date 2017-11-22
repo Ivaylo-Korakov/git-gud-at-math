@@ -13,6 +13,8 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Git_Gud_At_Math.Controls;
+using Git_Gud_At_Math.Controls.Views;
+using Git_Gud_At_Math.Drawing;
 using Git_Gud_At_Math.Models;
 using Git_Gud_At_Math.Utilities;
 using ValueType = Git_Gud_At_Math.Models.ValueType;
@@ -24,42 +26,25 @@ namespace Git_Gud_At_Math
     /// </summary>
     public partial class MainWindow : Window
     {
+        public MainViewController Controller { get; set; }
+        public Painter Painter { get; set; }
+
         public MainWindow()
         {
             InitializeComponent();
+            this.Painter = new Painter(this.Canvas);
+            this.Controller = new MainViewController(this);
+        }
 
-            var variables = new Dictionary<string, string>
-            {
-                {"x", "4"},
-                {"y", "5"}
-            };
-
-
-            //string toParse = @"/(*(-(x,3),+(c(n(-73)),r(1.6))),e(!(5)))";
-
-            //TreeNode parsedTree = new TreeNode("Root", ValueType.Unknown);
-            //Parser.ParseStringToTree(toParse, parsedTree);
-
-            //Debug.OutPutAttention("TO PARSE: " + toParse);
-            //Debug.PrintTree(parsedTree);
-
-            //Calculator.EvaluateFunctionTree(parsedTree, variables);
-
-            // ==============
-
-            string parse2 = @"/(-(+(x,1),*(x,3)),^(x,2))";
-            string parse3 = @"*(^(x,2),!(5))";
-
-            string sin = @"^(x,2)";
-            TreeNode parsedTree2 = new TreeNode("Root", ValueType.Unknown);
-            Parser.ParseStringToTree(sin, parsedTree2);
-
-            var points = Calculator.EvaluateFunctionTreeBetween(parsedTree2, variables,"x",0,10,4);
-
-            foreach (var point in points)
-            {
-                Console.WriteLine(point);
-            }
+        /// <summary>
+        /// EVENT:
+        /// This method is called when the button is pressed
+        /// Takes the input from the user and sends it to the controller to calculate it
+        /// </summary>
+        private void SolveBtn_Click(object sender, RoutedEventArgs e)
+        {
+            var input = InputStringField.Text;
+            Controller.Calculate(input);
         }
     }
 }
