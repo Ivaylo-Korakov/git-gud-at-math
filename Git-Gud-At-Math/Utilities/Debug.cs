@@ -12,6 +12,7 @@ namespace Git_Gud_At_Math.Utilities
     public static class Debug
     {
         public static bool IsApplicationInDebugMode = false;
+        public static bool IsDebugPrintingTrees = false;
 
         public static void OutPut<T>(T a)
         {
@@ -59,6 +60,7 @@ namespace Git_Gud_At_Math.Utilities
         public static void PrintTree(TreeNode node)
         {
             if (IsApplicationInDebugMode == false) return;
+            if (IsDebugPrintingTrees == false) return;
 
             if (_counter == 1)
             {

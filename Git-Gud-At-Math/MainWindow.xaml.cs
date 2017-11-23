@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Windows.Threading;
 using Git_Gud_At_Math.Controls;
 using Git_Gud_At_Math.Controls.Views;
 using Git_Gud_At_Math.Drawing;
@@ -32,6 +33,8 @@ namespace Git_Gud_At_Math
         public MainWindow()
         {
             InitializeComponent();
+            Dispatcher.BeginInvoke(DispatcherPriority.Loaded, new Action(this.EverythingLoaded));
+
             this.Painter = new Painter(this.Canvas);
             this.Controller = new MainViewController(this);
         }
@@ -43,8 +46,19 @@ namespace Git_Gud_At_Math
         /// </summary>
         private void SolveBtn_Click(object sender, RoutedEventArgs e)
         {
-            var input = InputStringField.Text;
-            Controller.Calculate(input);
+            var input = this.InputStringField.Text;
+            var density = double.Parse(this.InputStringFieldDensity.Text);
+            Controller.Calculate(input, density);
+        }
+
+        private void EverythingLoaded()
+        {
+            this.Painter.ResetCanvas();
+        }
+
+        private void ShowTreeBtn_Click(object sender, RoutedEventArgs e)
+        {
+            Console.WriteLine(Parser.ExportTree(this.Controller.CurrentTreeFunction));
         }
     }
 }

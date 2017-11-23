@@ -32,6 +32,8 @@ namespace Git_Gud_At_Math.Models
         public TreeNode Parent { get; set; }
         #endregion
 
+
+
         /// <summary>
         /// Constructor
         /// -----------

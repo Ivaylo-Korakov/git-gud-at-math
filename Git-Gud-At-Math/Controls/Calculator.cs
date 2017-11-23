@@ -32,7 +32,8 @@ namespace Git_Gud_At_Math.Controls
             {"l",NaturalLog },
             {"n",NaturalNumber },
             {"r",RationalNumber },
-            {"!",Factorial }
+            {"!",Factorial },
+            {"p",Pi }
         };
         #endregion
 
@@ -54,10 +55,23 @@ namespace Git_Gud_At_Math.Controls
             {
                 ReplaceVariables(startNodeOfTree, variables);
                 Debug.PrintTree(startNodeOfTree);
+            }
+            catch (Exception)
+            {
+                Debug.OutPutError("Unable to parse tree variables! Check your string!");
+                throw;
+            }
 
+            try
+            {
                 result = CalculateTree(startNodeOfTree);
                 Debug.PrintTree(startNodeOfTree);
-                Debug.OutPutAttention(result);
+                Debug.OutPutAttention("For: x= "+ variables["x"] + " y= " +  result);
+
+                if (double.IsNaN(result) || double.IsInfinity(result))
+                {
+                    throw new UnableToCalculateExpressions("NaN or infinity | UNDEFIEND");
+                }
             }
             catch (UnableToCalculateExpressions e)
             {
@@ -75,7 +89,7 @@ namespace Git_Gud_At_Math.Controls
             return result;
         }
 
-        public static List<Point> EvaluateFunctionTreeBetween(TreeNode startNodeOfTree, Dictionary<string, string> variables,string variableToCalculateFor, double startPoint, double endPoint, double density)
+        public static List<Point> EvaluateFunctionTreeBetween(TreeNode startNodeOfTree, Dictionary<string, string> variables, string variableToCalculateFor, double startPoint, double endPoint, double density)
         {
             List<Point> points = new List<Point>();
 
@@ -91,22 +105,58 @@ namespace Git_Gud_At_Math.Controls
             double lastPointer = startPoint;
             for (double pointer = startPoint; pointer <= endPoint; pointer += density)
             {
-                TreeNode tempTree = startNodeOfTree.Clone();
-                variables[variableToCalculateFor] = pointer.ToString();
-                double result = EvaluateFunctionTree(tempTree, variables);
-                points.Add(new Point(pointer,result));
-                lastPointer = pointer;
+                // Round pointer
+                pointer = Math.Round(pointer, 4);
+                try
+                {
+                    TreeNode tempTree = startNodeOfTree.Clone();
+                    variables[variableToCalculateFor] = pointer.ToString();
+                    double result = EvaluateFunctionTree(tempTree, variables);
+                    CheckAndAddPoint(new Point(pointer, result), points);
+                    lastPointer = pointer;
+                }
+                catch (UnableToCalculateExpressions) { continue; }
             }
 
             if (lastPointer < endPoint)
             {
-                TreeNode tempTree = startNodeOfTree.Clone();
-                variables[variableToCalculateFor] = endPoint.ToString();
-                double result = EvaluateFunctionTree(tempTree, variables);
-                points.Add(new Point(endPoint, result));
+                try
+                {
+                    TreeNode tempTree = startNodeOfTree.Clone();
+                    variables[variableToCalculateFor] = endPoint.ToString();
+                    double result = EvaluateFunctionTree(tempTree, variables);
+                    CheckAndAddPoint(new Point(endPoint, result), points);
+                }
+                catch (UnableToCalculateExpressions) { }
             }
 
             return points;
+        }
+
+        public static void CheckAndAddPoint(Point pointToAdd, List<Point> points)
+        {
+            if (double.IsNaN(pointToAdd.X) || double.IsNaN(pointToAdd.Y))
+            {
+                return;
+            }
+
+            if (double.IsInfinity(pointToAdd.X) || double.IsInfinity(pointToAdd.Y))
+            {
+                return;
+            }
+
+            if (pointToAdd.X >= double.PositiveInfinity || pointToAdd.Y >= double.PositiveInfinity)
+            {
+                return;
+            }
+
+            if (pointToAdd.X <= double.NegativeInfinity || pointToAdd.Y <= double.NegativeInfinity)
+            {
+                return;
+            }
+
+            Debug.OutPut("Adding: " + pointToAdd);
+            points.Add(pointToAdd);
         }
 
         /// <summary>
@@ -192,10 +242,12 @@ namespace Git_Gud_At_Math.Controls
             }
             catch (Exception)
             {
-                string incorectString = node.Value + " ( " + string.Join(",",node.Children) + " )";
+                string incorectString = node.Value + " ( " + string.Join(",", node.Children) + " )";
                 throw new UnableToCalculateExpressions("Unable to calculate the parsed tree from the input string", incorectString);
             }
-
+            
+            // Remove double imprecisions with rounding 
+            result = Math.Round(result, 4);
             return result;
         }
 
@@ -230,7 +282,7 @@ namespace Git_Gud_At_Math.Controls
                     }
                 }
             }
-            catch (Exception )
+            catch (Exception)
             {
                 throw new IncorrectNodeTreeFormat("The parsed tree is not correct! This error is when the input string is incorrect!");
             }
@@ -320,6 +372,11 @@ namespace Git_Gud_At_Math.Controls
         {
             var a = arguments.First();
             return MathNet.Numerics.SpecialFunctions.Factorial((int)a);
+        }
+
+        public static double Pi(List<double> arguments)
+        {
+            return Math.PI;
         }
         #endregion
     }

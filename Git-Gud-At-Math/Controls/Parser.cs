@@ -97,8 +97,8 @@ namespace Git_Gud_At_Math.Controls
         /// <returns>Result of the check</returns>
         public static bool IsVariable(string input)
         {
-            decimal temp;
-            if (decimal.TryParse(input, out temp))
+            double temp;
+            if (double.TryParse(input, out temp))
             {
                 return false;
             }
@@ -117,7 +117,7 @@ namespace Git_Gud_At_Math.Controls
             var bracketsLevel = 0;
             var lastPosition = 0;
             var substrings = new List<string>();
-            
+
             for (var i = 0; i != text.Length; i++)
             {
                 if (text[i] == '(')
@@ -148,6 +148,52 @@ namespace Git_Gud_At_Math.Controls
             }
 
             return substrings;
+        }
+
+        public static int Counter = 1;
+        public static string ExportTree(TreeNode rootNode)
+        {
+            Counter = 1;
+            string result = "graph calculus {\r\n" +
+                            "node [ fontname = \"Arial\" ]\r\n" +
+                            GetTreeToString(rootNode) +
+                            "}\r\n";
+
+            return result;
+        }
+        
+        private static string GetTreeToString(TreeNode rootNode)
+        {
+            string result = string.Empty;
+
+            result += "node" + rootNode.GetHashCode() + " [ label= \"" + ConvertSymbol(rootNode.Value) + "\" ]\n";
+
+            foreach (var rootNodeChild in rootNode.Children)
+            {
+                result += "node" + rootNode.GetHashCode() + " -- node" + rootNodeChild.GetHashCode() + "\n";
+                result += GetTreeToString(rootNodeChild);
+            }
+
+            return result;
+        }
+
+        private static string ConvertSymbol(string symbol)
+        {
+            switch (symbol)
+            {
+                case "s":
+                    return "sin";
+                case "c":
+                    return "cos";
+                case "l":
+                    return "ln";
+                case "e":
+                    return "exp";
+                case "p":
+                    return "pi";
+            }
+
+            return symbol;
         }
     }
 }

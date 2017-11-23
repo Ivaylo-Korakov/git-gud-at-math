@@ -12,8 +12,7 @@ namespace Git_Gud_At_Math.Controls.Views
     {
         public MainWindow Window { get; private set; }
         public TreeNode CurrentTreeFunction { get; private set; }
-
-
+        
         public delegate void NewCalcFunctionDel(List<Point> points);
         public event NewCalcFunctionDel NewFunctionCalculated;
 
@@ -30,15 +29,15 @@ namespace Git_Gud_At_Math.Controls.Views
             // +(*(c(x),2),*(s(*(2,x)),c(*(60,x))))
         }
 
-        public void Calculate(string input)
+        public void Calculate(string input,double density)         
         {
             double startPosition = -25;
             double endPosition = 25;
-            double density = 0.01;
 
             var variables = new Dictionary<string, string>
             {
-                {"x", "0"}
+                {"x", "0"},
+                {"y", "10"},
             };
 
             //try
