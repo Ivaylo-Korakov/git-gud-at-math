@@ -5,20 +5,11 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 using System.Windows.Threading;
 using Git_Gud_At_Math.Controls;
 using Git_Gud_At_Math.Controls.Views;
 using Git_Gud_At_Math.Drawing;
 using Git_Gud_At_Math.Models;
-using Git_Gud_At_Math.Utilities;
-using ValueType = Git_Gud_At_Math.Models.ValueType;
 
 namespace Git_Gud_At_Math
 {
@@ -63,6 +54,7 @@ namespace Git_Gud_At_Math
 
         private void EverythingLoaded()
         {
+            Console.WriteLine("asd");
             this.Painter.ResetCanvas();
         }
 
@@ -80,5 +72,24 @@ namespace Git_Gud_At_Math
             Console.WriteLine(this.InputStringFieldDensity.Text);
         }
 
+        private void FunctionView_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            var temp = this.FunctionView.SelectedItem;
+            if (temp != null)
+            {
+                this.Controller.CurrentSelectedFunction = (temp as Function);
+            }
+            this.SelectedFuncLable.Text = this.Controller.CurrentSelectedFunction.ToString();
+        }
+
+        private void DerivativeAnalyticalBtn_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void DerivativeNewtonBtn_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }

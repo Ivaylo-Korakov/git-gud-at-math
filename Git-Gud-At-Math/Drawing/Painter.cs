@@ -67,6 +67,7 @@ namespace Git_Gud_At_Math.Drawing
         {
             this.Canvas.Children.Clear();
             this.DrawGrid();
+            Console.WriteLine("Draw");
         }
 
         public void DrawLine(Point a, Point b, Brush brushToUse, int thickness)

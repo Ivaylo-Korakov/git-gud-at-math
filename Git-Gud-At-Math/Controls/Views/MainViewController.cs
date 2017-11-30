@@ -11,7 +11,7 @@ namespace Git_Gud_At_Math.Controls.Views
     public class MainViewController
     {
         public MainWindow Window { get; private set; }
-        public TreeNode CurrentTreeFunction { get; private set; }
+        public Function CurrentSelectedFunction { get; set; }
         public List<Function> Functions { get; set; }
 
         public delegate void NewCalcFunctionDel();

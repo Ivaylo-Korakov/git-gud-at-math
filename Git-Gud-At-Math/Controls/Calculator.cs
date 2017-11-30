@@ -179,6 +179,10 @@ namespace Git_Gud_At_Math.Controls
 
                 if (node.TypeOfValue == ValueType.Constant)
                 {
+                    if (Operations.ContainsKey(node.Value))
+                    {
+                        return CalculateSimpleNodeTree(node);
+                    }
                     return double.Parse(node.Value);
                 }
                 else

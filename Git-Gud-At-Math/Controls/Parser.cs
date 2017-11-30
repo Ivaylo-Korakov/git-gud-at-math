@@ -123,6 +123,10 @@ namespace Git_Gud_At_Math.Controls
         /// <returns>Result of the check</returns>
         public static bool IsVariable(string input)
         {
+            if (input == "p")
+            {
+                return false;
+            }
             double temp;
             if (double.TryParse(input, out temp))
             {
