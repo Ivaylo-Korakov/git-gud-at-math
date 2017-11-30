@@ -12,14 +12,17 @@ namespace Git_Gud_At_Math.Controls.Views
     {
         public MainWindow Window { get; private set; }
         public TreeNode CurrentTreeFunction { get; private set; }
-        
-        public delegate void NewCalcFunctionDel(List<Point> points);
-        public event NewCalcFunctionDel NewFunctionCalculated;
+        public List<Function> Functions { get; set; }
+
+        public delegate void NewCalcFunctionDel();
+
+        public event NewCalcFunctionDel FunctionUpdated;
 
         public MainViewController(MainWindow mainWindow)
         {
             this.Window = mainWindow;
-            this.NewFunctionCalculated += this.Window.Painter.NewFunctionToDraw;
+            this.Functions = new List<Function>();
+            this.FunctionUpdated += this.Window.Painter.ReDrawCanvas;
 
             // Test data
             // /(*(-(x,3),+(c(n(-73)),r(1.6))),e(!(5)))
@@ -27,33 +30,21 @@ namespace Git_Gud_At_Math.Controls.Views
             // *(^(x,2),!(5))
             // ^(x,2)
             // +(*(c(x),2),*(s(*(2,x)),c(*(60,x))))
+            // /(c(x),s(x))
         }
 
-        public void Calculate(string input,double density)         
+        public void AddFunction(Function functionToAdd)
         {
-            double startPosition = -25;
-            double endPosition = 25;
+            this.Functions.Add(functionToAdd); 
+            functionToAdd.Calculate(-25,25,0.1);
+            this.Window.FunctionView.Items.Add(functionToAdd);
+            FunctionUpdated();
+        }
 
-            var variables = new Dictionary<string, string>
-            {
-                {"x", "0"},
-                {"y", "10"},
-            };
-
-            //try
-            //{
-                this.CurrentTreeFunction = new TreeNode("Root", ValueType.Unknown);
-                Parser.ParseStringToTree(input, this.CurrentTreeFunction);
-
-                List<Point> points = Calculator.EvaluateFunctionTreeBetween(this.CurrentTreeFunction, variables, "x", startPosition, endPosition, density);
-
-                NewFunctionCalculated(points);
-                Debug.PrintTree(this.CurrentTreeFunction);
-            //}
-            //catch (Exception)
-            //{
-            //    Debug.OutPutError("Something went wrong! Please try again!");
-            //}
+        public void RemoveFunction(Function functionToRemove)
+        {
+            this.Functions.Remove(functionToRemove);
+            FunctionUpdated();
         }
     }
 }

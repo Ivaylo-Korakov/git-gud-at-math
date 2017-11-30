@@ -90,6 +90,32 @@ namespace Git_Gud_At_Math.Controls
         }
 
         /// <summary>
+        /// This method parses a tree into a string with recursion
+        /// </summary>
+        /// <param name="treeToParse">Tree to convert to string</param>
+        /// <returns>The string representation of the function</returns>
+        public static string ParseTreeToString(TreeNode treeToParse)
+        {
+            string result;
+
+            if (treeToParse.TypeOfValue == ValueType.Operator)
+            {
+                List<string> args = new List<string>();
+                foreach (var child in treeToParse.Children)
+                {
+                    args.Add(ParseTreeToString(child));
+                }
+                result = treeToParse.Value + "(" + string.Join(",",args) + ")";
+            }
+            else
+            {
+                result = treeToParse.Value;
+            }
+
+            return result;
+        }
+
+        /// <summary>
         /// A simple function that checks if a string value 
         /// can be parsed or not therefor works like a variable checker.
         /// </summary>

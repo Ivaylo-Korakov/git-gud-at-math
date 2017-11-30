@@ -7,6 +7,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Shapes;
 using System.Windows.Media;
+using Git_Gud_At_Math.Models;
 using Git_Gud_At_Math.Utilities;
 
 namespace Git_Gud_At_Math.Drawing
@@ -14,54 +15,64 @@ namespace Git_Gud_At_Math.Drawing
     public class Painter
     {
         public Canvas Canvas { get; private set; }
+        public MainWindow Window { get; private set; }
         public double CanvasScale = 40;
+        public int NormalThickness = 2;
+        public int FunctionThickness = 5;
         public Brush DefaultBrush = Brushes.Black;
         public Brush FunctionBrush = Brushes.Crimson;
         public Brush AttentionBrush = Brushes.DodgerBlue;
+        public List<Function> SolutionsOfFunctions => Window.Controller.Functions;
 
-        public Painter(Canvas windowCanvas)
+        public Painter(MainWindow mainWindow)
         {
-            this.Canvas = windowCanvas;
-            ResetCanvas();
+            this.Window = mainWindow;
+            this.Canvas = this.Window.Canvas;
+            this.ResetCanvas();
         }
 
         public void DrawGrid()
         {
             // Draw grid lines
-            for (int i = - 400 / (int)this.CanvasScale; i < 400 / (int)this.CanvasScale; i++)
+            for (int i = -400 / (int)this.CanvasScale; i < 400 / (int)this.CanvasScale; i++)
             {
                 // x line
-                DrawLine(new Point(this.Canvas.ActualWidth * -1, i), new Point(this.Canvas.ActualWidth, i), DefaultBrush);
+                this.DrawLine(new Point(this.Canvas.ActualWidth * -1, i), new Point(this.Canvas.ActualWidth, i), DefaultBrush, NormalThickness);
                 // y line
-                DrawLine(new Point(i, this.Canvas.ActualHeight * -1), new Point(i, this.Canvas.ActualHeight), DefaultBrush);
+                this.DrawLine(new Point(i, this.Canvas.ActualHeight * -1), new Point(i, this.Canvas.ActualHeight), DefaultBrush, NormalThickness);
             }
 
             // Draw two main lines
             // x line
-            DrawLine(new Point(this.Canvas.ActualWidth * -1, 0), new Point(this.Canvas.ActualWidth, 0), AttentionBrush);
+            this.DrawLine(new Point(this.Canvas.ActualWidth * -1, 0), new Point(this.Canvas.ActualWidth, 0), AttentionBrush, NormalThickness);
             // y line
-            DrawLine(new Point(0, this.Canvas.ActualHeight * -1), new Point(0, this.Canvas.ActualHeight), AttentionBrush);
-
+            this.DrawLine(new Point(0, this.Canvas.ActualHeight * -1), new Point(0, this.Canvas.ActualHeight), AttentionBrush, NormalThickness);
         }
 
-        public void NewFunctionToDraw(List<Point> points)
+        public void ReDrawCanvas()
         {
-            ResetCanvas();
-            DrawLines(points);
+            this.ResetCanvas();
+            this.DrawFunctions();
         }
 
-        public void DrawLine(Point a, Point b, Brush brushToUse)
+        public void DrawFunctions()
+        {
+            foreach (Function function in this.SolutionsOfFunctions)
+            {
+                this.DrawFunction(function);
+            }
+        }
+
+        public void ResetCanvas()
+        {
+            this.Canvas.Children.Clear();
+            this.DrawGrid();
+        }
+
+        public void DrawLine(Point a, Point b, Brush brushToUse, int thickness)
         {
             a = TranslatePosition(a);
             b = TranslatePosition(b);
-
-            double thickness = 2;
-
-            // Check if function
-            if (Equals(brushToUse, this.FunctionBrush))
-            {
-                thickness = 6;
-            }
 
             var newLine = new Line
             {
@@ -70,19 +81,22 @@ namespace Git_Gud_At_Math.Drawing
                 X2 = b.X,
                 Y1 = a.Y,
                 Y2 = b.Y,
-                //HorizontalAlignment = HorizontalAlignment.Left,
-                //VerticalAlignment = VerticalAlignment.Center,
                 StrokeThickness = thickness
             };
 
             this.Canvas.Children.Add(newLine);
         }
 
-        public void DrawLines(List<Point> points)
+        public void DrawFunction(Function func)
         {
-            for (int index = 0; index < points.Count - 1; index++)
+            if (func.IsVisible == false) return;
+            
+            BrushConverter bc = new BrushConverter();
+            Brush tempBrush = (Brush)bc.ConvertFrom(Converters.HexConverter(func.FunctionColor));
+
+            for (int index = 0; index < func.FunctionSolutions.Count - 1; index++)
             {
-                DrawLine(points[index], points[index + 1], FunctionBrush);
+                this.DrawLine(func.FunctionSolutions[index], func.FunctionSolutions[index + 1], tempBrush, this.FunctionThickness);
             }
         }
 
@@ -108,12 +122,6 @@ namespace Git_Gud_At_Math.Drawing
 
             Debug.OutPut(" -> " + newPoint + " | " + width + " : " + height);
             return newPoint;
-        }
-
-        public void ResetCanvas()
-        {
-            this.Canvas.Children.Clear();
-            DrawGrid();
         }
     }
 }

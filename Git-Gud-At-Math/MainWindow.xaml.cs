@@ -35,7 +35,7 @@ namespace Git_Gud_At_Math
             InitializeComponent();
             Dispatcher.BeginInvoke(DispatcherPriority.Loaded, new Action(this.EverythingLoaded));
 
-            this.Painter = new Painter(this.Canvas);
+            this.Painter = new Painter(this);
             this.Controller = new MainViewController(this);
         }
 
@@ -47,8 +47,18 @@ namespace Git_Gud_At_Math
         private void SolveBtn_Click(object sender, RoutedEventArgs e)
         {
             var input = this.InputStringField.Text;
-            var density = double.Parse(this.InputStringFieldDensity.Text);
-            Controller.Calculate(input, density);
+            Function newFuncToAdd = new Function(input);
+            Controller.AddFunction(newFuncToAdd);
+        }
+        
+        private void DeleteBtn_Click(object sender, RoutedEventArgs e)
+        {
+            var temp = this.FunctionView.SelectedItem;
+            if (temp != null)
+            {
+                this.FunctionView.Items.Remove(temp);
+                Controller.RemoveFunction(temp as Function);
+            }
         }
 
         private void EverythingLoaded()
@@ -58,7 +68,17 @@ namespace Git_Gud_At_Math
 
         private void ShowTreeBtn_Click(object sender, RoutedEventArgs e)
         {
-            Console.WriteLine(Parser.ExportTree(this.Controller.CurrentTreeFunction));
+            var temp = this.FunctionView.SelectedItem;
+            if (temp != null)
+            {
+                Console.WriteLine(Parser.ExportTree((temp as Function).FunctionTree));
+            }
         }
+
+        private void InputStringFieldDensity_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            Console.WriteLine(this.InputStringFieldDensity.Text);
+        }
+
     }
 }

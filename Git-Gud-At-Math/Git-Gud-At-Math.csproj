@@ -67,6 +67,9 @@
     <Compile Include="Exceptions\IncorrectNodeTreeFormat.cs" />
     <Compile Include="Exceptions\UnableToCalculateExpressions.cs" />
     <Compile Include="Exceptions\UnparseableString.cs" />
+    <Compile Include="Models\Function.cs" />
+    <Compile Include="Utilities\ColorGenerator.cs" />
+    <Compile Include="Utilities\Converters.cs" />
     <Compile Include="Utilities\Debug.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
