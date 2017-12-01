@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -41,7 +42,7 @@ namespace Git_Gud_At_Math
             Function newFuncToAdd = new Function(input);
             Controller.AddFunction(newFuncToAdd);
         }
-        
+
         private void DeleteBtn_Click(object sender, RoutedEventArgs e)
         {
             var temp = this.FunctionView.SelectedItem;
@@ -63,7 +64,8 @@ namespace Git_Gud_At_Math
             var temp = this.FunctionView.SelectedItem;
             if (temp != null)
             {
-                Console.WriteLine(Parser.ExportTree((temp as Function).FunctionTree));
+                TreeGraphWindow newGraphWindow = new TreeGraphWindow((temp as Function));
+                newGraphWindow.Show();
             }
         }
 

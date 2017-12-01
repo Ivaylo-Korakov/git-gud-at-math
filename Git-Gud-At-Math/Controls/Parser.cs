@@ -184,8 +184,9 @@ namespace Git_Gud_At_Math.Controls
         public static string ExportTree(TreeNode rootNode)
         {
             Counter = 1;
-            string result = "graph calculus {\r\n" +
-                            "node [ fontname = \"Arial\" ]\r\n" +
+            string result = "digraph calculus {\r\n" +
+                            "bgcolor=\"transparent\"\r\n" +
+                            "node [ fontname = \"Arial\" color=\"#3399ff\" fontcolor=\"#ffffff\" ]\r\n" +
                             GetTreeToString(rootNode) +
                             "}\r\n";
 
@@ -200,7 +201,7 @@ namespace Git_Gud_At_Math.Controls
 
             foreach (var rootNodeChild in rootNode.Children)
             {
-                result += "node" + rootNode.GetHashCode() + " -- node" + rootNodeChild.GetHashCode() + "\n";
+                result += "node" + rootNode.GetHashCode() + " -> node" + rootNodeChild.GetHashCode() + " [dir=both color=\"#3399ff: #ff1744; 0.5:#3399ff\"]\n";
                 result += GetTreeToString(rootNodeChild);
             }
 
