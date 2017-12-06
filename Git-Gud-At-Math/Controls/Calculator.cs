@@ -225,7 +225,7 @@ namespace Git_Gud_At_Math.Controls
         /// </summary>
         /// <param name="node">The start node of the tree</param>
         /// <returns>The total value of the calculate tree</returns>
-        private static double CalculateSimpleNodeTree(TreeNode node)
+        public static double CalculateSimpleNodeTree(TreeNode node)
         {
             double result = 0;
 
@@ -302,7 +302,7 @@ namespace Git_Gud_At_Math.Controls
         /// </summary>
         /// <param name="arguments">The values needed to perform the operation</param>
         /// <returns>The result of the operation</returns>
-        #region Math Operations
+        #region Math DerivativeRules
         public static double NaturalNumber(List<double> arguments)
         {
             return arguments.First();
@@ -315,30 +315,54 @@ namespace Git_Gud_At_Math.Controls
 
         public static double Addition(List<double> arguments)
         {
-            var a = arguments.First();
-            var b = arguments.Last();
-            return a + b;
+            double result = 0;
+            foreach (var arg in arguments)
+            {
+                result += arg;
+            }
+            return result;
         }
 
         public static double Substraction(List<double> arguments)
         {
-            var a = arguments.First();
-            var b = arguments.Last();
-            return a - b;
+            double result = 0;
+            foreach (var arg in arguments)
+            {
+                result -= arg;
+            }
+            return result;
         }
 
         public static double Multiplication(List<double> arguments)
         {
-            var a = arguments.First();
-            var b = arguments.Last();
-            return a * b;
+            double result = arguments[0];
+            int counter = 0;
+            foreach (var arg in arguments)
+            {
+                if (counter == 0)
+                {
+                    counter++;
+                    continue;
+                }
+                result *= arg;
+            }
+            return result;
         }
 
         public static double Devision(List<double> arguments)
         {
-            var a = arguments.First();
-            var b = arguments.Last();
-            return a / b;
+            double result = arguments[0];
+            int counter = 0;
+            foreach (var arg in arguments)
+            {
+                if (counter == 0)
+                {
+                    counter++;
+                    continue;
+                }
+                result /= arg;
+            }
+            return result;
         }
 
         public static double Sin(List<double> arguments)

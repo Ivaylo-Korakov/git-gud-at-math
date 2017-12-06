@@ -15,7 +15,8 @@ namespace Git_Gud_At_Math.Models
         public TreeNode FunctionTree { get; set; }
 
         public List<Point> FunctionSolutions { get; set; }
-
+        public double Density => this.CalculateDensity();
+        
         public Color FunctionColor { get; set; }
         public bool IsVisible { get; set; }
 
@@ -43,6 +44,7 @@ namespace Git_Gud_At_Math.Models
         {
             this.FunctionTree = new TreeNode("Root", ValueType.Unknown);
             Parser.ParseStringToTree(this.FunctionAsString, this.FunctionTree);
+            this.FunctionTree = TreeSimplifier.Simplify(this.FunctionTree);
         }
 
         public void Calculate(double startPosition, double endPosition, double density)
@@ -50,7 +52,7 @@ namespace Git_Gud_At_Math.Models
             var variables = new Dictionary<string, string>
             {
                 {"x", "0"},
-                {"y", "0"},
+                {"y", "5"},
             };
 
             //try
@@ -62,6 +64,16 @@ namespace Git_Gud_At_Math.Models
             //{
             //    Debug.OutPutError("Something went wrong! Please try again!");
             //}
+        }
+
+        private double CalculateDensity()
+        {
+            if (this.FunctionSolutions.Count >= 2)
+            {
+                return this.FunctionSolutions[1].X - this.FunctionSolutions[0].X;
+            }
+
+            return 0;
         }
 
         public override string ToString()

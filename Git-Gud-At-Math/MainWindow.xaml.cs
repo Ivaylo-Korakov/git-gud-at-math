@@ -1,9 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Threading;
@@ -39,8 +34,12 @@ namespace Git_Gud_At_Math
         private void SolveBtn_Click(object sender, RoutedEventArgs e)
         {
             var input = this.InputStringField.Text;
-            Function newFuncToAdd = new Function(input);
-            Controller.AddFunction(newFuncToAdd);
+            if (input.Length >= 1)
+            {
+                Function newFuncToAdd = new Function(input);
+                Controller.AddFunction(newFuncToAdd);
+                this.InputStringField.Text = String.Empty;
+            }
         }
 
         private void DeleteBtn_Click(object sender, RoutedEventArgs e)
@@ -55,18 +54,12 @@ namespace Git_Gud_At_Math
 
         private void EverythingLoaded()
         {
-            Console.WriteLine("asd");
             this.Painter.ResetCanvas();
         }
 
         private void ShowTreeBtn_Click(object sender, RoutedEventArgs e)
         {
-            var temp = this.FunctionView.SelectedItem;
-            if (temp != null)
-            {
-                TreeGraphWindow newGraphWindow = new TreeGraphWindow((temp as Function));
-                newGraphWindow.Show();
-            }
+            Controller.ShowFunctionTree();
         }
 
         private void InputStringFieldDensity_TextChanged(object sender, TextChangedEventArgs e)
@@ -92,6 +85,19 @@ namespace Git_Gud_At_Math
         private void DerivativeNewtonBtn_Click(object sender, RoutedEventArgs e)
         {
 
+        }
+
+        private void CalcIntegralBtn_Click(object sender, RoutedEventArgs e)
+        {
+            double start = double.Parse(this.IntegralStart.Text);
+            double end = double.Parse(this.IntegralEnd.Text);
+
+            if (this.Controller.CurrentSelectedFunction != null)
+            {
+                double answer = IntegralCalculator.CalculateIntegralOf(this.Controller.CurrentSelectedFunction, start, end);
+                this.CalculatedIntegral.Content = answer;
+                Console.WriteLine(answer);
+            }
         }
     }
 }

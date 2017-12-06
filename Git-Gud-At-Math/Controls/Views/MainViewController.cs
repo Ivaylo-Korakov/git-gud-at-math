@@ -13,6 +13,7 @@ namespace Git_Gud_At_Math.Controls.Views
         public MainWindow Window { get; private set; }
         public Function CurrentSelectedFunction { get; set; }
         public List<Function> Functions { get; set; }
+        public static Dictionary<string, Window> OpenedFunctionTreeWindows = new Dictionary<string, Window>();
 
         public delegate void NewCalcFunctionDel();
 
@@ -31,12 +32,16 @@ namespace Git_Gud_At_Math.Controls.Views
             // ^(x,2)
             // +(*(c(x),2),*(s(*(2,x)),c(*(60,x))))
             // /(c(x),s(x))
+            // /(c(^(x,*(2,2))),s(x))
+            // /(c(^(1,*(2,2))),s(x))
+            // ^(x,2,^(x,2,2))
+            // ^(x,2,^(x,^(2,2,2),2))
         }
 
         public void AddFunction(Function functionToAdd)
         {
-            this.Functions.Add(functionToAdd); 
-            functionToAdd.Calculate(-25,25,0.1);
+            this.Functions.Add(functionToAdd);
+            functionToAdd.Calculate(-25, 25, 0.1);
             this.Window.FunctionView.Items.Add(functionToAdd);
             FunctionUpdated();
         }
@@ -45,6 +50,24 @@ namespace Git_Gud_At_Math.Controls.Views
         {
             this.Functions.Remove(functionToRemove);
             FunctionUpdated();
+        }
+
+        public void ShowFunctionTree()
+        {
+            if (this.CurrentSelectedFunction != null)
+            {
+                // Check if it already exists
+                if (OpenedFunctionTreeWindows.ContainsKey(this.CurrentSelectedFunction.FunctionAsString))
+                {
+                    OpenedFunctionTreeWindows[this.CurrentSelectedFunction.FunctionAsString].Focus();
+                }
+                else
+                {
+                    TreeGraphWindow newGraphWindow = new TreeGraphWindow(this.CurrentSelectedFunction);
+                    OpenedFunctionTreeWindows.Add(this.CurrentSelectedFunction.FunctionAsString, newGraphWindow);
+                    newGraphWindow.Show();
+                }
+            }
         }
     }
 }

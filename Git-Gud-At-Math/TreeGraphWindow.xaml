@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Git_Gud_At_Math"
         mc:Ignorable="d"
-        Title="TreeGraphWindow" Height="472.766" Width="437.632" Activated="Window_Activated">
+        Title="TreeGraphWindow" Height="472.766" Width="437.632" Activated="Window_Activated" ResizeMode="NoResize">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="46*"/>

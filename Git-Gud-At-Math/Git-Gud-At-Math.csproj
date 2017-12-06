@@ -63,6 +63,8 @@
     </ApplicationDefinition>
     <Compile Include="Controls\Calculator.cs" />
     <Compile Include="Controls\DerivativeCalculator.cs" />
+    <Compile Include="Controls\IntegralCalculator.cs" />
+    <Compile Include="Controls\TreeSimplifier.cs" />
     <Compile Include="Controls\Views\MainViewController.cs" />
     <Compile Include="Drawing\Painter.cs" />
     <Compile Include="Drawing\TreeGrapher.cs" />

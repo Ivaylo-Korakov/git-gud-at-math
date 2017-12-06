@@ -101,6 +101,8 @@ namespace Git_Gud_At_Math.Drawing
             }
         }
 
+        
+
         public Point TranslatePosition(Point point)
         {
             Debug.OutPut("Point: " + point);

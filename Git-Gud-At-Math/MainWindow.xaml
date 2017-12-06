@@ -95,7 +95,7 @@
 
         <Viewbox Grid.Row="0" Grid.Column="1" Margin="16,30,10,9">
             <TextBlock x:Name="SelectedFuncLable" TextWrapping="Wrap" Text="No function selected" HorizontalAlignment="Left"  VerticalAlignment="Top" FontSize="32" Foreground="DodgerBlue"/>
-        </Viewbox> 
+        </Viewbox>
         <Label Content="Derivatives:" HorizontalAlignment="Left" Margin="10,6,0,0" VerticalAlignment="Top" FontSize="24" Foreground="White" Height="45" Width="288" Grid.Column="1" Grid.Row="1"/>
         <Rectangle Fill="DodgerBlue" HorizontalAlignment="Left" Height="2" Margin="16,45,0,0" StrokeThickness="10" VerticalAlignment="Top" Width="436" Grid.Row="1" Grid.Column="1"/>
         <Button x:Name="DerivativeAnalyticalBtn" Content="Analytically" HorizontalAlignment="Left" Margin="16,63,0,0" VerticalAlignment="Top" Width="208" Height="37"  FontSize="20" FontWeight="Bold" Background="#FF3399FF" Foreground="White" BorderThickness="1,1,1,0" BorderBrush="{x:Null}" Grid.Row="1" Grid.Column="1" Click="DerivativeAnalyticalBtn_Click">
@@ -108,6 +108,19 @@
                 <DropShadowEffect ShadowDepth="0" BlurRadius="10"/>
             </Button.Effect>
         </Button>
+        <Label Content="Integrals:" HorizontalAlignment="Left" Margin="10,103,0,0" VerticalAlignment="Top" FontSize="24" Foreground="White" Height="45" Width="288" Grid.Column="1" Grid.Row="1"/>
+        <Rectangle Fill="DodgerBlue" HorizontalAlignment="Left" Height="2" Margin="16,142,0,0" StrokeThickness="10" VerticalAlignment="Top" Width="436" Grid.Row="1" Grid.Column="1"/>
+        <Button x:Name="CalcIntegralBtn" Content="Calculate" HorizontalAlignment="Left" Margin="16,160,0,0" VerticalAlignment="Top" Width="208" Height="37"  FontSize="20" FontWeight="Bold" Background="#FF3399FF" Foreground="White" BorderThickness="1,1,1,0" BorderBrush="{x:Null}" Grid.Row="1" Grid.Column="1" Click="CalcIntegralBtn_Click">
+            <Button.Effect>
+                <DropShadowEffect ShadowDepth="0" BlurRadius="10"/>
+            </Button.Effect>
+        </Button>
+        <TextBox x:Name="IntegralStart" HorizontalAlignment="Left" Height="27" Margin="73,211,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="143" FontSize="16" Background="{x:Null}" BorderThickness="2" Foreground="White" Padding="5,0,0,0" FontStyle="Italic" TextDecorations="{x:Null}" BorderBrush="#FF0078D7" Text="-1" TextChanged="InputStringFieldDensity_TextChanged" Grid.Column="1" Grid.Row="1"/>
+        <TextBox x:Name="IntegralEnd" HorizontalAlignment="Left" Height="27" Margin="306,211,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="144" FontSize="16" Background="{x:Null}" BorderThickness="2" Foreground="White" Padding="5,0,0,0" FontStyle="Italic" TextDecorations="{x:Null}" BorderBrush="#FF0078D7" Text="1" TextChanged="InputStringFieldDensity_TextChanged" Grid.Column="1" Grid.Row="1"/>
+        <Label Content="Start:" HorizontalAlignment="Left" Margin="16,207,0,0" VerticalAlignment="Top" FontSize="18" Foreground="White" Height="35" Width="57" Grid.Column="1" Grid.Row="1"/>
+        <Label Content="End:" HorizontalAlignment="Left" Margin="254,207,0,0" VerticalAlignment="Top" FontSize="18" Foreground="White" Height="35" Width="58" Grid.Column="1" Grid.Row="1"/>
+        <Label Content="Approximation:" HorizontalAlignment="Left" Margin="235,160,0,0" VerticalAlignment="Top" FontSize="18" Foreground="White" Height="37" Width="135" Grid.Column="1" Grid.Row="1"/>
+        <Label x:Name="CalculatedIntegral" Content="- - -" HorizontalAlignment="Left" Margin="370,160,0,0" VerticalAlignment="Top" FontSize="18" Foreground="White" Height="37" Width="80" Grid.Column="1" Grid.Row="1"/>
 
     </Grid>
 </Window> 

@@ -75,6 +75,8 @@ namespace Git_Gud_At_Math.Controls
                             : new TreeNode(argument, ValueType.Constant));
                     }
                 }
+
+                //rootNode = TreeSimplifier.SimplifySplit(rootNode);
             }
             catch (UnparseableString e)
             {
@@ -105,7 +107,7 @@ namespace Git_Gud_At_Math.Controls
                 {
                     args.Add(ParseTreeToString(child));
                 }
-                result = treeToParse.Value + "(" + string.Join(",",args) + ")";
+                result = treeToParse.Value + "(" + string.Join(",", args) + ")";
             }
             else
             {
@@ -192,7 +194,7 @@ namespace Git_Gud_At_Math.Controls
 
             return result;
         }
-        
+
         private static string GetTreeToString(TreeNode rootNode)
         {
             string result = string.Empty;
