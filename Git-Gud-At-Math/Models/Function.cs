@@ -10,26 +10,30 @@ namespace Git_Gud_At_Math.Models
 {
     public class Function
     {
+        #region Fields / Properties
         public string FunctionAsString { get; set; }
-
         public TreeNode FunctionTree { get; set; }
-
         public List<Point> FunctionSolutions { get; set; }
         public double Density => this.CalculateDensity();
-        
+
         public Color FunctionColor { get; set; }
         public bool IsVisible { get; set; }
+        #endregion
 
+        #region Constructors
         public Function()
         {
             this.FunctionSolutions = new List<Point>();
-      
+
             this.FunctionColor = (Color)ColorConverter.ConvertFromString("#" + ColorGenerator.GetColor.NextColour());
             this.IsVisible = true;
         }
 
         public Function(string functionAsString) : this()
         {
+            functionAsString = functionAsString.Trim();
+            functionAsString = functionAsString.ToLower();
+
             this.FunctionAsString = functionAsString;
             this.ParseIntoTree();
         }
@@ -38,7 +42,10 @@ namespace Git_Gud_At_Math.Models
         {
             this.FunctionTree = functionTreeRoot;
             this.FunctionAsString = Parser.ParseTreeToString(functionTreeRoot);
+            this.FunctionTree = TreeSimplifier.Simplify(this.FunctionTree);
         }
+        #endregion
+
 
         private void ParseIntoTree()
         {
@@ -55,15 +62,15 @@ namespace Git_Gud_At_Math.Models
                 {"y", "5"},
             };
 
-            //try
-            //{
-            this.FunctionSolutions = Calculator.EvaluateFunctionTreeBetween(this.FunctionTree, variables, "x", startPosition, endPosition, density);
-            Debug.PrintTree(this.FunctionTree);
-            //}
-            //catch (Exception)
-            //{
-            //    Debug.OutPutError("Something went wrong! Please try again!");
-            //}
+            try
+            {
+              this.FunctionSolutions = Calculator.EvaluateFunctionTreeBetween(this.FunctionTree, variables, "x", startPosition, endPosition, density);
+              Debug.PrintTree(this.FunctionTree);
+            }
+            catch (Exception e)
+            {
+                Debug.OutPutError("Something went wrong! Please try again! \n \n" + e);
+            }
         }
 
         private double CalculateDensity()

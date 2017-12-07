@@ -1,8 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Shapes;
@@ -16,7 +13,7 @@ namespace Git_Gud_At_Math.Drawing
     {
         public Canvas Canvas { get; private set; }
         public MainWindow Window { get; private set; }
-        public double CanvasScale = 40;
+        public double CanvasScale = 100;
         public int NormalThickness = 2;
         public int FunctionThickness = 5;
         public Brush DefaultBrush = Brushes.Black;

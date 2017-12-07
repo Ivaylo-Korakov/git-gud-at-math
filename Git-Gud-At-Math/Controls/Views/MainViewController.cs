@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Windows;
+using System.Windows.Controls;
 using Git_Gud_At_Math.Exceptions;
 using Git_Gud_At_Math.Models;
 using Git_Gud_At_Math.Utilities;

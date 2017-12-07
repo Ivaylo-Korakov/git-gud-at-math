@@ -79,7 +79,18 @@ namespace Git_Gud_At_Math
 
         private void DerivativeAnalyticalBtn_Click(object sender, RoutedEventArgs e)
         {
+            if (this.Controller.CurrentSelectedFunction != null)
+            {
+                // Get Derivative tree
+                var tempTree =
+                    DerivativeCalculator.GetDerivativeOfTree(this.Controller.CurrentSelectedFunction.FunctionTree);
 
+                // Create new function
+                Function tempFunc = new Function(tempTree);
+
+                // Add
+                this.Controller.AddFunction(tempFunc);
+            }
         }
 
         private void DerivativeNewtonBtn_Click(object sender, RoutedEventArgs e)

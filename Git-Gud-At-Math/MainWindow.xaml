@@ -121,6 +121,7 @@
         <Label Content="End:" HorizontalAlignment="Left" Margin="254,207,0,0" VerticalAlignment="Top" FontSize="18" Foreground="White" Height="35" Width="58" Grid.Column="1" Grid.Row="1"/>
         <Label Content="Approximation:" HorizontalAlignment="Left" Margin="235,160,0,0" VerticalAlignment="Top" FontSize="18" Foreground="White" Height="37" Width="135" Grid.Column="1" Grid.Row="1"/>
         <Label x:Name="CalculatedIntegral" Content="- - -" HorizontalAlignment="Left" Margin="370,160,0,0" VerticalAlignment="Top" FontSize="18" Foreground="White" Height="37" Width="80" Grid.Column="1" Grid.Row="1"/>
+        <TreeView x:Name="TreeView" Grid.Column="1" HorizontalAlignment="Left" Height="510" Margin="16,272,0,0" Grid.Row="1" VerticalAlignment="Top" Width="382"/>
 
     </Grid>
 </Window> 

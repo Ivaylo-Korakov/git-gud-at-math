@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using Git_Gud_At_Math.Exceptions;
 using Git_Gud_At_Math.Models;

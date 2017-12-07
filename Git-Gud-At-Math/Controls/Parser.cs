@@ -75,8 +75,6 @@ namespace Git_Gud_At_Math.Controls
                             : new TreeNode(argument, ValueType.Constant));
                     }
                 }
-
-                //rootNode = TreeSimplifier.SimplifySplit(rootNode);
             }
             catch (UnparseableString e)
             {

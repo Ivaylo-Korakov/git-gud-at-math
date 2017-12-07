@@ -235,7 +235,14 @@ namespace Git_Gud_At_Math.Controls
                 // Parse values into doubles
                 foreach (var childNode in node.Children)
                 {
-                    values.Add(double.Parse(childNode.Value));
+                    if (Operations.ContainsKey(childNode.Value))
+                    {
+                        values.Add(Operations[childNode.Value](values));
+                    }
+                    else
+                    {
+                        values.Add(double.Parse(childNode.Value));
+                    }
                 }
 
                 // Invoke a specific function
@@ -325,9 +332,15 @@ namespace Git_Gud_At_Math.Controls
 
         public static double Substraction(List<double> arguments)
         {
-            double result = 0;
+            double result = arguments.First();
+            int counter = 0;
             foreach (var arg in arguments)
             {
+                if (counter == 0)
+                {
+                    counter++;
+                    continue;
+                }
                 result -= arg;
             }
             return result;
