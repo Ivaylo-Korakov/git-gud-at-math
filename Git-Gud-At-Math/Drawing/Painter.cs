@@ -13,7 +13,7 @@ namespace Git_Gud_At_Math.Drawing
     {
         public Canvas Canvas { get; private set; }
         public MainWindow Window { get; private set; }
-        public double CanvasScale = 100;
+        public double CanvasScale = 50;
         public int NormalThickness = 2;
         public int FunctionThickness = 5;
         public Brush DefaultBrush = Brushes.Black;

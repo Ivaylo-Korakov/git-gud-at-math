@@ -12,7 +12,7 @@ namespace Git_Gud_At_Math.Utilities
     public static class Debug
     {
         public static bool IsApplicationInDebugMode = false;
-        public static bool IsDebugPrintingTrees = true;
+        public static bool IsDebugPrintingTrees = false;
 
         public static void OutPut<T>(T a)
         {

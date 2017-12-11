@@ -96,10 +96,47 @@ namespace Git_Gud_At_Math.Controls
                     if (startNode.Children[i].TypeOfValue == ValueType.Operator)
                     {
                         startNode.Children[i] = SimplifyCalculations(startNode.Children[i].Clone());
-                        if (startNode.Children[i].TypeOfValue == ValueType.Operator)
+                        if (startNode.Children[i].TypeOfValue == ValueType.Operator || startNode.Children[i].TypeOfValue == ValueType.Variable)
                         {
                             isOnlyConstants = false;
                         }
+                    }
+                }
+
+                // Special case power
+                if (startNode.Value == "^")
+                {
+                    if (startNode.Children.Last().Value == "1")
+                    {
+                        return startNode.Children.First().Clone();
+                    }
+
+                    if (startNode.Children.Last().Value == "0")
+                    {
+                        return new TreeNode("1", ValueType.Constant);
+                    }
+                }
+
+                // Special case multiply
+                if (startNode.Value == "*")
+                {
+                    // Check children
+                    foreach (var startNodeChild in startNode.Children)
+                    {
+                        if (startNodeChild.Value == "0")
+                        {
+                            return new TreeNode("0", ValueType.Constant);
+                        }
+                    }
+
+                    if (startNode.Children.First().Value == "1")
+                    {
+                        return startNode.Children.Last().Clone();
+                    }
+
+                    if (startNode.Children.Last().Value == "1")
+                    {
+                        return startNode.Children.First().Clone();
                     }
                 }
 

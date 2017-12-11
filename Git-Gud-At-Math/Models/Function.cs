@@ -16,8 +16,14 @@ namespace Git_Gud_At_Math.Models
         public List<Point> FunctionSolutions { get; set; }
         public double Density => this.CalculateDensity();
 
+        public int FunctionId = 0;
+        public string FunctionName = "";
+
         public Color FunctionColor { get; set; }
         public bool IsVisible { get; set; }
+
+
+        public static int NextFunctionId = 0;
         #endregion
 
         #region Constructors
@@ -27,6 +33,9 @@ namespace Git_Gud_At_Math.Models
 
             this.FunctionColor = (Color)ColorConverter.ConvertFromString("#" + ColorGenerator.GetColor.NextColour());
             this.IsVisible = true;
+
+            this.FunctionId = NextFunctionId++;
+            this.FunctionName = this.FunctionId.ToString();
         }
 
         public Function(string functionAsString) : this()
@@ -41,8 +50,9 @@ namespace Git_Gud_At_Math.Models
         public Function(TreeNode functionTreeRoot) : this()
         {
             this.FunctionTree = functionTreeRoot;
-            this.FunctionAsString = Parser.ParseTreeToString(functionTreeRoot);
             this.FunctionTree = TreeSimplifier.Simplify(this.FunctionTree);
+
+            this.FunctionAsString = Parser.ParseTreeToString(this.FunctionTree);
         }
         #endregion
 
@@ -85,7 +95,7 @@ namespace Git_Gud_At_Math.Models
 
         public override string ToString()
         {
-            return "f(x) = " + FunctionAsString;
+            return this.FunctionName + " | f(x) = " + FunctionAsString;
         }
     }
 }

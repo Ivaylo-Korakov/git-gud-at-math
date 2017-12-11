@@ -192,12 +192,34 @@ namespace Git_Gud_At_Math.Controls
 
         private static TreeNode LogRule(List<TreeNode> args)
         {
-            throw new NotImplementedException();
+            TreeNode x = args.First();
+
+            TreeNode multiply = new TreeNode("*", ValueType.Operator);
+
+            TreeNode devide = new TreeNode("/", ValueType.Operator);
+            devide.Add(new TreeNode("1",ValueType.Constant));
+
+            devide.Add(x.Clone());
+
+            multiply.Add(devide);
+            multiply.Add(GetDerivativeOfTree(x.Clone()));
+
+            return multiply;
         }
 
         private static TreeNode ExponentialRule(List<TreeNode> args)
         {
-            throw new NotImplementedException();
+            TreeNode x = args.First();
+
+            TreeNode multiply = new TreeNode("*", ValueType.Operator);
+
+            TreeNode power = new TreeNode("e", ValueType.Operator);
+            power.Add(x.Clone());
+
+            multiply.Add(power);
+            multiply.Add(GetDerivativeOfTree(x.Clone()));
+
+            return multiply;
         }
         #endregion
     }

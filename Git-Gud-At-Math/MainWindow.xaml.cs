@@ -87,6 +87,7 @@ namespace Git_Gud_At_Math
 
                 // Create new function
                 Function tempFunc = new Function(tempTree);
+                tempFunc.FunctionName += " | D: " + this.Controller.CurrentSelectedFunction.FunctionId;
 
                 // Add
                 this.Controller.AddFunction(tempFunc);
