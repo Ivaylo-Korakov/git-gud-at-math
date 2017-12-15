@@ -42,14 +42,28 @@ namespace Git_Gud_At_Math.Controls.Views
         public void AddFunction(Function functionToAdd)
         {
             this.Functions.Add(functionToAdd);
-            functionToAdd.Calculate(-25, 25, 0.1);
+
+            double start = this.Window.Painter.CanvasMinValue;
+            double end = this.Window.Painter.CanvasMaxValue;
+
+            functionToAdd.Calculate(start, end, 0.1);
+
             this.Window.FunctionView.Items.Add(functionToAdd);
+            FunctionUpdated();
+        }
+
+        public void AddSolutionFunction(Function solutionFunctionToAdd)
+        {
+            this.Functions.Add(solutionFunctionToAdd);
+
+            this.Window.FunctionView.Items.Add(solutionFunctionToAdd);
             FunctionUpdated();
         }
 
         public void RemoveFunction(Function functionToRemove)
         {
             this.Functions.Remove(functionToRemove);
+            this.CurrentSelectedFunction = null;
             FunctionUpdated();
         }
 

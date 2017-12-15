@@ -75,7 +75,7 @@
     <Compile Include="TreeGraphWindow.xaml.cs">
       <DependentUpon>TreeGraphWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Utilities\ColorGenerator.cs" />
+    <Compile Include="Models\ColorGenerator.cs" />
     <Compile Include="Utilities\Converters.cs" />
     <Compile Include="Utilities\Debug.cs" />
     <Page Include="MainWindow.xaml">

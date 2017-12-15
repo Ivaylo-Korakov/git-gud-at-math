@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Threading;
@@ -22,9 +23,12 @@ namespace Git_Gud_At_Math
             InitializeComponent();
             Dispatcher.BeginInvoke(DispatcherPriority.Loaded, new Action(this.EverythingLoaded));
 
+
             this.Painter = new Painter(this);
             this.Controller = new MainViewController(this);
         }
+
+
 
         /// <summary>
         /// EVENT:
@@ -47,8 +51,8 @@ namespace Git_Gud_At_Math
             var temp = this.FunctionView.SelectedItem;
             if (temp != null)
             {
-                this.FunctionView.Items.Remove(temp);
                 Controller.RemoveFunction(temp as Function);
+                this.FunctionView.Items.Remove(temp);
             }
         }
 
@@ -74,13 +78,14 @@ namespace Git_Gud_At_Math
             {
                 this.Controller.CurrentSelectedFunction = (temp as Function);
             }
-            this.SelectedFuncLable.Text = this.Controller.CurrentSelectedFunction.ToString();
+            this.SelectedFuncLable.Text = Controller.CurrentSelectedFunction?.ToString() ?? "No function selected";
         }
 
         private void DerivativeAnalyticalBtn_Click(object sender, RoutedEventArgs e)
         {
             if (this.Controller.CurrentSelectedFunction != null)
             {
+                if (this.Controller.CurrentSelectedFunction.IsSolutionFunction) return;
                 // Get Derivative tree
                 var tempTree =
                     DerivativeCalculator.GetDerivativeOfTree(this.Controller.CurrentSelectedFunction.FunctionTree);
@@ -96,7 +101,25 @@ namespace Git_Gud_At_Math
 
         private void DerivativeNewtonBtn_Click(object sender, RoutedEventArgs e)
         {
+            if (this.Controller.CurrentSelectedFunction != null)
+            {
+                if (this.Controller.CurrentSelectedFunction.IsSolutionFunction) return;
+                double start = this.Painter.CanvasMinValue;
+                double end = this.Painter.CanvasMaxValue;
+                Function tempFunc =  DerivativeCalculator.CalculateNewtonQuotient(
+                    this.Controller.CurrentSelectedFunction,
+                    new Dictionary<string, string>()
+                    {
+                        {"x", "0"}
+                    },
+                    "x", start, end, 0.1);
 
+                // Create new function
+                tempFunc.FunctionName += " | D: " + this.Controller.CurrentSelectedFunction.FunctionId;
+
+                // Add
+                this.Controller.AddSolutionFunction(tempFunc);
+            }
         }
 
         private void CalcIntegralBtn_Click(object sender, RoutedEventArgs e)
@@ -106,6 +129,7 @@ namespace Git_Gud_At_Math
 
             if (this.Controller.CurrentSelectedFunction != null)
             {
+                if (this.Controller.CurrentSelectedFunction.IsSolutionFunction) return;
                 double answer = IntegralCalculator.CalculateIntegralOf(this.Controller.CurrentSelectedFunction, start, end);
                 this.CalculatedIntegral.Content = answer;
                 Console.WriteLine(answer);

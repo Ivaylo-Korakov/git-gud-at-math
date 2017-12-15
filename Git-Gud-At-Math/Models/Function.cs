@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Windows;
-using System.Drawing;
 using System.Windows.Media;
 using Git_Gud_At_Math.Controls;
 using Git_Gud_At_Math.Utilities;
@@ -15,6 +14,7 @@ namespace Git_Gud_At_Math.Models
         public TreeNode FunctionTree { get; set; }
         public List<Point> FunctionSolutions { get; set; }
         public double Density => this.CalculateDensity();
+        public bool IsSolutionFunction = false;
 
         public int FunctionId = 0;
         public string FunctionName = "";
@@ -22,7 +22,7 @@ namespace Git_Gud_At_Math.Models
         public Color FunctionColor { get; set; }
         public bool IsVisible { get; set; }
 
-
+        // Static global next function id
         public static int NextFunctionId = 0;
         #endregion
 
@@ -36,6 +36,20 @@ namespace Git_Gud_At_Math.Models
 
             this.FunctionId = NextFunctionId++;
             this.FunctionName = this.FunctionId.ToString();
+        }
+
+        public Function(List<Point> functionSolutions)
+        {
+            this.FunctionAsString = "Only Solution List";
+            this.FunctionSolutions = functionSolutions;
+            this.FunctionTree = new TreeNode("Solutions", ValueType.Unknown);
+
+            this.FunctionColor = (Color)ColorConverter.ConvertFromString("#" + ColorGenerator.GetColor.NextColour());
+            this.IsVisible = true;
+
+            this.FunctionId = NextFunctionId++;
+            this.FunctionName = this.FunctionId.ToString();
+            this.IsSolutionFunction = true;
         }
 
         public Function(string functionAsString) : this()
@@ -74,8 +88,8 @@ namespace Git_Gud_At_Math.Models
 
             try
             {
-              this.FunctionSolutions = Calculator.EvaluateFunctionTreeBetween(this.FunctionTree, variables, "x", startPosition, endPosition, density);
-              Debug.PrintTree(this.FunctionTree);
+                this.FunctionSolutions = Calculator.EvaluateFunctionTreeBetween(this.FunctionTree, variables, "x", startPosition, endPosition, density);
+                Debug.PrintTree(this.FunctionTree);
             }
             catch (Exception e)
             {

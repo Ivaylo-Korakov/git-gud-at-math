@@ -26,12 +26,15 @@ namespace Git_Gud_At_Math
         {
             InitializeComponent();
 
-            Console.WriteLine(functionToGraph.FunctionAsString);
             this.FunctionNameAsString = "F(x) = " + functionToGraph.FunctionAsString;
 
-            Debug.PrintTree(functionToGraph.FunctionTree);
             string treeAsString = Parser.ExportTree(functionToGraph.FunctionTree);
-            Console.WriteLine(treeAsString);
+            
+            // Debug 
+            // Debug.OutPut(functionToGraph.FunctionAsString);
+            // Debug.PrintTree(functionToGraph.FunctionTree);
+            // Debug.OutPut(treeAsString);
+
             File.WriteAllText(functionToGraph.GetHashCode() + ".dot", treeAsString);
             Process dot = new Process();
             dot.StartInfo.FileName = @"C:\Program Files (x86)\Graphviz2.38\bin\dot.exe";

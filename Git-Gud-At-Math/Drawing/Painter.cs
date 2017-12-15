@@ -13,7 +13,9 @@ namespace Git_Gud_At_Math.Drawing
     {
         public Canvas Canvas { get; private set; }
         public MainWindow Window { get; private set; }
-        public double CanvasScale = 50;
+        public double CanvasScale = 10;
+        public int CanvasMinValue => -400 / (int) this.CanvasScale;
+        public int CanvasMaxValue => 400 / (int) this.CanvasScale;
         public int NormalThickness = 2;
         public int FunctionThickness = 5;
         public Brush DefaultBrush = Brushes.Black;
@@ -31,7 +33,7 @@ namespace Git_Gud_At_Math.Drawing
         public void DrawGrid()
         {
             // Draw grid lines
-            for (int i = -400 / (int)this.CanvasScale; i < 400 / (int)this.CanvasScale; i++)
+            for (int i = this.CanvasMinValue; i < this.CanvasMaxValue; i++)
             {
                 // x line
                 this.DrawLine(new Point(this.Canvas.ActualWidth * -1, i), new Point(this.Canvas.ActualWidth, i), DefaultBrush, NormalThickness);
