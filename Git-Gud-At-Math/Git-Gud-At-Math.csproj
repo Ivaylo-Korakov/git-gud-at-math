@@ -43,6 +43,7 @@
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Numerics" />
+    <Reference Include="System.Printing" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
@@ -63,11 +64,13 @@
     </ApplicationDefinition>
     <Compile Include="Controls\Calculator.cs" />
     <Compile Include="Controls\DerivativeCalculator.cs" />
+    <Compile Include="Controls\FunctionCalculator.cs" />
     <Compile Include="Controls\IntegralCalculator.cs" />
+    <Compile Include="Controls\SeriesCalculator.cs" />
     <Compile Include="Controls\TreeSimplifier.cs" />
     <Compile Include="Controls\Views\MainViewController.cs" />
+    <Compile Include="Drawing\FunctionEditor.cs" />
     <Compile Include="Drawing\Painter.cs" />
-    <Compile Include="Drawing\TreeGrapher.cs" />
     <Compile Include="Exceptions\IncorrectNodeTreeFormat.cs" />
     <Compile Include="Exceptions\UnableToCalculateExpressions.cs" />
     <Compile Include="Exceptions\UnparseableString.cs" />

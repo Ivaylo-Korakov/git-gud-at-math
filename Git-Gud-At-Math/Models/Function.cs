@@ -17,7 +17,7 @@ namespace Git_Gud_At_Math.Models
         public bool IsSolutionFunction = false;
 
         public int FunctionId = 0;
-        public string FunctionName = "";
+        public string FunctionName = string.Empty;
 
         public Color FunctionColor { get; set; }
         public bool IsVisible { get; set; }
@@ -65,7 +65,6 @@ namespace Git_Gud_At_Math.Models
         {
             this.FunctionTree = functionTreeRoot;
             this.FunctionTree = TreeSimplifier.Simplify(this.FunctionTree);
-
             this.FunctionAsString = Parser.ParseTreeToString(this.FunctionTree);
         }
         #endregion
@@ -77,7 +76,7 @@ namespace Git_Gud_At_Math.Models
             Parser.ParseStringToTree(this.FunctionAsString, this.FunctionTree);
             this.FunctionTree = TreeSimplifier.Simplify(this.FunctionTree);
         }
-
+        
         public void Calculate(double startPosition, double endPosition, double density)
         {
             var variables = new Dictionary<string, string>

@@ -93,6 +93,17 @@ namespace Git_Gud_At_Math.Controls
             return new TreeNode("1", ValueType.Constant);
         }
 
+        public static TreeNode GetDerivativeOfN(TreeNode startNode, int n)
+        {
+            for (int i = 0; i < n; i++)
+            {
+                startNode = GetDerivativeOfTree(startNode.Clone());
+                startNode = TreeSimplifier.Simplify(startNode.Clone());
+            }
+            
+            return startNode;
+        }
+
         #region DerivativeRules
         private static TreeNode SumRule(List<TreeNode> args)
         {
@@ -167,6 +178,9 @@ namespace Git_Gud_At_Math.Controls
             denominator.Add(b);
             denominator.Add(new TreeNode("2", ValueType.Constant));
 
+            quotientNode.Add(nominator);
+            quotientNode.Add(denominator);
+
             return quotientNode;
         }
 
@@ -220,7 +234,7 @@ namespace Git_Gud_At_Math.Controls
             TreeNode minus = new TreeNode("-", ValueType.Operator);
             minus.Add(new TreeNode("0", ValueType.Constant));
 
-            TreeNode cos = new TreeNode("c", ValueType.Operator);
+            TreeNode cos = new TreeNode("s", ValueType.Operator);
             cos.Add(x.Clone());
 
             minus.Add(cos);

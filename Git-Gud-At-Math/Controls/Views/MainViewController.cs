@@ -67,6 +67,12 @@ namespace Git_Gud_At_Math.Controls.Views
             FunctionUpdated();
         }
 
+        public void ClearFunctions()
+        {
+            this.Functions.Clear();
+            FunctionUpdated();
+        }
+
         public void ShowFunctionTree()
         {
             if (this.CurrentSelectedFunction != null)
@@ -74,7 +80,16 @@ namespace Git_Gud_At_Math.Controls.Views
                 // Check if it already exists
                 if (OpenedFunctionTreeWindows.ContainsKey(this.CurrentSelectedFunction.FunctionAsString))
                 {
-                    OpenedFunctionTreeWindows[this.CurrentSelectedFunction.FunctionAsString].Focus();
+                    if (OpenedFunctionTreeWindows[this.CurrentSelectedFunction.FunctionAsString].IsLoaded)
+                    {
+                        OpenedFunctionTreeWindows[this.CurrentSelectedFunction.FunctionAsString].Focus();
+                    }
+                    else
+                    {
+                        TreeGraphWindow newGraphWindow = new TreeGraphWindow(this.CurrentSelectedFunction);
+                        OpenedFunctionTreeWindows[this.CurrentSelectedFunction.FunctionAsString] = newGraphWindow;
+                        newGraphWindow.Show();
+                    }
                 }
                 else
                 {

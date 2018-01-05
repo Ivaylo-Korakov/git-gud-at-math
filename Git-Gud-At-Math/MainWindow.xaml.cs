@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Input;
+using System.Windows.Media;
 using System.Windows.Threading;
 using Git_Gud_At_Math.Controls;
 using Git_Gud_At_Math.Controls.Views;
@@ -17,19 +19,18 @@ namespace Git_Gud_At_Math
     {
         public MainViewController Controller { get; set; }
         public Painter Painter { get; set; }
-
+        public FunctionEditor FunctionEditor { get; set; }
+        
         public MainWindow()
         {
             InitializeComponent();
             Dispatcher.BeginInvoke(DispatcherPriority.Loaded, new Action(this.EverythingLoaded));
 
-
             this.Painter = new Painter(this);
             this.Controller = new MainViewController(this);
+            this.FunctionEditor = new FunctionEditor(this);
         }
-
-
-
+        
         /// <summary>
         /// EVENT:
         /// This method is called when the button is pressed
@@ -54,6 +55,12 @@ namespace Git_Gud_At_Math
                 Controller.RemoveFunction(temp as Function);
                 this.FunctionView.Items.Remove(temp);
             }
+        }
+
+        private void DeleteAllBtn_Click(object sender, RoutedEventArgs e)
+        {
+            this.Controller.ClearFunctions();
+            this.FunctionView.Items.Clear();
         }
 
         private void EverythingLoaded()
@@ -86,17 +93,39 @@ namespace Git_Gud_At_Math
             if (this.Controller.CurrentSelectedFunction != null)
             {
                 if (this.Controller.CurrentSelectedFunction.IsSolutionFunction) return;
-                // Get Derivative tree
-                var tempTree =
-                    DerivativeCalculator.GetDerivativeOfTree(this.Controller.CurrentSelectedFunction.FunctionTree);
+
+                var newFunction = DerivativeCalculator.CalculateDerivativeOf(this.Controller.CurrentSelectedFunction);
 
                 // Create new function
-                Function tempFunc = new Function(tempTree);
-                tempFunc.FunctionName += " | D: " + this.Controller.CurrentSelectedFunction.FunctionId;
+                newFunction.FunctionName += " | D: " + this.Controller.CurrentSelectedFunction.FunctionId;
 
                 // Add
-                this.Controller.AddFunction(tempFunc);
+                this.Controller.AddFunction(newFunction);
             }
+        }
+
+        private void DerivativeAnalyticalOrder_Click(object sender, RoutedEventArgs e)
+        {
+            string text = this.DerivativeOrderInput.Text;
+            int orderOfDerivative = 1;
+
+            if (int.TryParse(text, out orderOfDerivative) == false)
+                return;
+
+            if (this.Controller.CurrentSelectedFunction == null)
+                return;
+
+            if (this.Controller.CurrentSelectedFunction.IsSolutionFunction)
+                return;
+
+            // Get new derivative tree
+            TreeNode newDerivativeTree =
+                DerivativeCalculator.GetDerivativeOfN(this.Controller.CurrentSelectedFunction.FunctionTree.Clone(),
+                    orderOfDerivative);
+
+            // Create new function
+            Function newFunction = new Function(newDerivativeTree);
+            this.Controller.AddFunction(newFunction);
         }
 
         private void DerivativeNewtonBtn_Click(object sender, RoutedEventArgs e)
@@ -106,7 +135,7 @@ namespace Git_Gud_At_Math
                 if (this.Controller.CurrentSelectedFunction.IsSolutionFunction) return;
                 double start = this.Painter.CanvasMinValue;
                 double end = this.Painter.CanvasMaxValue;
-                Function tempFunc =  DerivativeCalculator.CalculateNewtonQuotient(
+                Function tempFunc = DerivativeCalculator.CalculateNewtonQuotient(
                     this.Controller.CurrentSelectedFunction,
                     new Dictionary<string, string>()
                     {
@@ -133,6 +162,86 @@ namespace Git_Gud_At_Math
                 double answer = IntegralCalculator.CalculateIntegralOf(this.Controller.CurrentSelectedFunction, start, end);
                 this.CalculatedIntegral.Content = answer;
                 Console.WriteLine(answer);
+            }
+        }
+
+        private void McLaurinBtn_Click(object sender, RoutedEventArgs e)
+        {
+            // Get and validate input
+            string inputN = this.McLaurinN.Text;
+            string inputA = this.McLaurinA.Text;
+            int n = 0;
+            int a = 0;
+
+            if (int.TryParse(inputN, out n) == false)
+            {
+                MessageBox.Show("Enter a valid integer for N");
+                return;
+            }
+            if (int.TryParse(inputA, out a) == false)
+            {
+                MessageBox.Show("Enter a valid integer for A");
+                return;
+            }
+
+            if (n <= 0 || n > 8)
+            {
+                MessageBox.Show("N must be between 0 and 8");
+                return;
+            }
+
+            if (this.Controller.CurrentSelectedFunction != null)
+            {
+                Function newMcSeriesFunction =
+                    SeriesCalculator.CalculateMcLaurinSeries(Controller.CurrentSelectedFunction, a, n);
+
+
+                this.Controller.AddFunction(newMcSeriesFunction);
+            }
+        }
+
+        private void CreativeModeBtn_Click(object sender, RoutedEventArgs e)
+        {
+            if (this.FunctionEditor.IsActive == false)
+            {
+                this.FunctionEditor.Enable();
+            }
+            else
+            {
+                this.FunctionEditor.GenerateFunction();
+            }
+        }
+
+        private void CancelEditMode_Click(object sender, RoutedEventArgs e)
+        {
+            this.FunctionEditor.Disable();
+        }
+
+        private void Canvas_MouseLeftButtonDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        {
+            Point p = Mouse.GetPosition(this.Canvas);
+            this.FunctionEditor.AddPoint(p);
+        }
+
+        private void slValue_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
+        {
+            if (this.Painter != null)
+            {
+                this.Painter.ChangeZoomLevel(e.NewValue);
+            }
+            Console.WriteLine(e.NewValue);
+        }
+
+        private void Canvas_MouseWheel_1(object sender, MouseWheelEventArgs e)
+        {
+            double zoomSpeed = 2;
+            if (e.Delta < 0)
+            {
+                this.slValue.Value -= zoomSpeed;
+            }
+            else
+            {
+                this.slValue.Value += zoomSpeed;
             }
         }
     }

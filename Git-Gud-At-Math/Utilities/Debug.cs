@@ -50,18 +50,23 @@ namespace Git_Gud_At_Math.Utilities
             Console.WriteLine("ATTENTION: " + a.ToString());
             Console.ForegroundColor = savedColor;
         }
-        
+
 
         private static int _counter = 1;
+
         /// <summary>
         /// This method is used only for debugging purpose.
         /// Its prints a tree with a given start treNode
         /// </summary>
         /// <param name="node">Start treeNode to print onwards</param>
-        public static void PrintTree(TreeNode node)
+        /// <param name="skipDebugAccess">Adds ability to skip debug options</param>
+        public static void PrintTree(TreeNode node, bool skipDebugAccess = false)
         {
-            if (IsApplicationInDebugMode == false) return;
-            if (IsDebugPrintingTrees == false) return;
+            if (skipDebugAccess == false)
+            {
+                if (IsApplicationInDebugMode == false) return;
+                if (IsDebugPrintingTrees == false) return;
+            }
 
             if (_counter == 1)
             {
@@ -76,13 +81,31 @@ namespace Git_Gud_At_Math.Utilities
                 _counter++;
                 foreach (var childNode in node.Children)
                 {
-                    PrintTree(childNode);
+                    PrintTree(childNode, skipDebugAccess);
                 }
                 _counter--;
                 return;
             }
 
             Console.WriteLine("+ (" + _counter + ") " + String.Concat(Enumerable.Repeat("-", _counter * 3)) + " " + node);
+        }
+
+        public static void Print2DMatrix(double[,] matrix, bool skipDebugAccess)
+        {
+            if (skipDebugAccess == false)
+            {
+                if (IsApplicationInDebugMode == false) return;
+                if (IsDebugPrintingTrees == false) return;
+            }
+
+            for (int row = 0; row < matrix.GetLength(1); row++)
+            {
+                for (int col = 0; col < matrix.GetLength(0); col++)
+                {
+                    Console.Write(matrix[row, col] + " ");
+                }
+                Console.WriteLine();
+            }
         }
     }
 }

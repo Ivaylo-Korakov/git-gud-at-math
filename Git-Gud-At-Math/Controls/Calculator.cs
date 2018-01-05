@@ -230,8 +230,8 @@ namespace Git_Gud_At_Math.Controls
             double result = 0;
 
             List<double> values = new List<double>();
-            try
-            {
+            //try
+            //{
                 // Parse values into doubles
                 foreach (var childNode in node.Children)
                 {
@@ -250,12 +250,12 @@ namespace Git_Gud_At_Math.Controls
                 {
                     result = Operations[node.Value](values);
                 }
-            }
-            catch (Exception)
-            {
-                string incorectString = node.Value + " ( " + string.Join(",", node.Children) + " )";
-                throw new UnableToCalculateExpressions("Unable to calculate the parsed tree from the input string", incorectString);
-            }
+            //}
+            //catch (Exception)
+            //{
+            //    string incorectString = node.Value + " ( " + string.Join(",", node.Children) + " )";
+            //    throw new UnableToCalculateExpressions("Unable to calculate the parsed tree from the input string", incorectString);
+            //}
             
             // Remove double imprecisions with rounding 
             result = Math.Round(result, 4);
@@ -298,6 +298,7 @@ namespace Git_Gud_At_Math.Controls
                 throw new IncorrectNodeTreeFormat("The parsed tree is not correct! This error is when the input string is incorrect!");
             }
         }
+
         #endregion
 
         /// <summary>
