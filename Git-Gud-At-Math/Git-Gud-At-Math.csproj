@@ -70,6 +70,7 @@
     </ApplicationDefinition>
     <Compile Include="Controls\Calculator.cs" />
     <Compile Include="Controls\DerivativeCalculator.cs" />
+    <Compile Include="Controls\DiceRoller.cs" />
     <Compile Include="Controls\FunctionCalculator.cs" />
     <Compile Include="Controls\IntegralCalculator.cs" />
     <Compile Include="Controls\SeriesCalculator.cs" />
@@ -83,6 +84,9 @@
     <Compile Include="Models\Function.cs" />
     <Compile Include="Windows\ColumnChart.xaml.cs">
       <DependentUpon>ColumnChart.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\LineChart.xaml.cs">
+      <DependentUpon>LineChart.xaml</DependentUpon>
     </Compile>
     <Compile Include="Windows\NormalDistribution.xaml.cs">
       <DependentUpon>NormalDistribution.xaml</DependentUpon>
@@ -108,6 +112,10 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="Windows\ColumnChart.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\LineChart.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

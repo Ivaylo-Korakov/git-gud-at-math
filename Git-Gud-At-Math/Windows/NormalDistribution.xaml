@@ -25,7 +25,7 @@
                 <DropShadowEffect ShadowDepth="0" BlurRadius="10"/>
             </Button.Effect>
         </Button>
-        <vsc:ColumnChart x:Name="Test" Margin="42,10,39,484" Grid.Column="1"
+        <vsc:ColumnChart x:Name="ResultChart" Margin="42,10,39,484" Grid.Column="1"
             ></vsc:ColumnChart>
         <Rectangle Fill="DodgerBlue" HorizontalAlignment="Left" Height="928" StrokeThickness="10" VerticalAlignment="Top" Width="4" Grid.Column="1"/>
         <Rectangle Fill="#7F061525" HorizontalAlignment="Left" Height="98" VerticalAlignment="Top" Width="473" StrokeThickness="10">
@@ -44,5 +44,12 @@
         <TextBox x:Name="NumberOfGames" HorizontalAlignment="Left" Height="27" Margin="253,269,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="201" FontSize="16" Background="{x:Null}" BorderThickness="2" Foreground="White" Padding="5,0,0,0" FontStyle="Italic" TextDecorations="{x:Null}" BorderBrush="#FF0078D7" Text="6"/>
         <Label Content="Number of games:" HorizontalAlignment="Left" Margin="15,264,0,0" VerticalAlignment="Top" FontSize="18" Foreground="White" Height="35" Width="224"/>
         <Rectangle Fill="DodgerBlue" HorizontalAlignment="Left" Height="5" Margin="4,453,0,0" StrokeThickness="10" VerticalAlignment="Top" Width="929" Grid.Column="1"/>
+        <Button x:Name="ClearDataBtn" Content="Clear Data" HorizontalAlignment="Right" Margin="0,0,15,12" VerticalAlignment="Bottom" Width="440" Height="38" FontSize="20" FontWeight="Bold" Background="#FFC7152D" Foreground="White" BorderThickness="1,1,1,0" BorderBrush="{x:Null}" Click="ClearDataBtn_Click">
+            <Button.Effect>
+                <DropShadowEffect ShadowDepth="0" BlurRadius="10"/>
+            </Button.Effect>
+        </Button>
+        
+        <vsc:LineChart x:Name="LineResultChart" Grid.Column="1" Margin="42,463,39,14"></vsc:LineChart>
     </Grid>
 </Window>

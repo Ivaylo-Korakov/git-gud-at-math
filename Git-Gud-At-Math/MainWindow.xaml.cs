@@ -76,7 +76,7 @@ namespace Git_Gud_At_Math
 
         private void InputStringFieldDensity_TextChanged(object sender, TextChangedEventArgs e)
         {
-            Console.WriteLine(this.InputStringFieldDensity.Text);
+            //Console.WriteLine(this.InputStringFieldDensity.Text);
         }
 
         private void FunctionView_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -162,7 +162,7 @@ namespace Git_Gud_At_Math
                 if (this.Controller.CurrentSelectedFunction.IsSolutionFunction) return;
                 double answer = IntegralCalculator.CalculateIntegralOf(this.Controller.CurrentSelectedFunction, start, end);
                 this.CalculatedIntegral.Content = answer;
-                Console.WriteLine(answer);
+                //Console.WriteLine(answer);
             }
         }
 
@@ -195,8 +195,7 @@ namespace Git_Gud_At_Math
             {
                 Function newMcSeriesFunction =
                     SeriesCalculator.CalculateMcLaurinSeries(Controller.CurrentSelectedFunction, a, n);
-
-
+                
                 this.Controller.AddFunction(newMcSeriesFunction);
             }
         }
@@ -230,7 +229,7 @@ namespace Git_Gud_At_Math
             {
                 this.Painter.ChangeZoomLevel(e.NewValue);
             }
-            Console.WriteLine(e.NewValue);
+            //Console.WriteLine(e.NewValue);
         }
 
         private void Canvas_MouseWheel_1(object sender, MouseWheelEventArgs e)
