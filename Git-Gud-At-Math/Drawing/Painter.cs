@@ -55,8 +55,8 @@ namespace Git_Gud_At_Math.Drawing
         {
             Ellipse myPoint = new Ellipse();
             myPoint.Fill = Brushes.Crimson;
-            myPoint.Width = 10;
-            myPoint.Height = 10;
+            myPoint.Width = 20;
+            myPoint.Height = 20;
 
             // Translate point into canvas cords
             point = this.TranslatePosition(point);

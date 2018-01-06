@@ -166,5 +166,10 @@
             <Slider Value="40" Minimum="10" Maximum="100" TickPlacement="BottomRight" TickFrequency="1" IsSnapToTickEnabled="True" x:Name="slValue" ValueChanged="slValue_ValueChanged" />
         </DockPanel>
         <Rectangle Fill="DodgerBlue" HorizontalAlignment="Left" Height="53" StrokeThickness="10" VerticalAlignment="Bottom" Width="5" Grid.Row="1" Margin="377,0,0,0"/>
+        <Button x:Name="NormalDistributionBtn" Content="Normal Distribution" HorizontalAlignment="Right" Margin="0,0,382,8" VerticalAlignment="Bottom" Width="322" Height="37" FontSize="20" FontWeight="Bold" Background="#FF3399FF" Foreground="White" BorderThickness="1,1,1,0" BorderBrush="{x:Null}" Grid.Row="1" Click="NormalDistributionBtn_Click">
+            <Button.Effect>
+                <DropShadowEffect ShadowDepth="0" BlurRadius="10"/>
+            </Button.Effect>
+        </Button>
     </Grid>
 </Window> 

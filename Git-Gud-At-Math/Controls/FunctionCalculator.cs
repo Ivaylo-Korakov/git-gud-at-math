@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Git_Gud_At_Math.Models;
+using ValueType = Git_Gud_At_Math.Models.ValueType;
 
 namespace Git_Gud_At_Math.Controls
 {
@@ -36,6 +38,46 @@ namespace Git_Gud_At_Math.Controls
             {
                 return (input[0, 0]);
             }
+        }
+
+        public static TreeNode GenerateFumcTreeFromCoefficients(List<double> coefficients)
+        {
+            TreeNode sum = new TreeNode("+",ValueType.Operator);
+
+            int power = coefficients.Count - 1;
+            foreach (var coefficient in coefficients)
+            {
+                TreeNode multiplyNode = new TreeNode("*", ValueType.Operator);
+                multiplyNode.Add(new TreeNode(coefficient.ToString(),ValueType.Constant));
+
+                TreeNode powerNode = new TreeNode("^",ValueType.Operator);
+                powerNode.Add(new TreeNode("x",ValueType.Variable));
+                powerNode.Add(new TreeNode(power.ToString(),ValueType.Constant));
+                
+                multiplyNode.Add(powerNode);
+                sum.Add(multiplyNode);
+
+                power--;
+            }
+
+            return sum;
+        }
+
+        public static double[,] ReplaceCol(double[,] matrix, List<double> points, int colNumber)
+        {
+            try
+            {
+                for (int i = 0; i < matrix.GetLength(0); i++)
+                {
+                    matrix[i, colNumber] = points[i];
+                }
+            }
+            catch (IndexOutOfRangeException)
+            {
+                return null;
+            }
+
+            return matrix;
         }
 
         #endregion

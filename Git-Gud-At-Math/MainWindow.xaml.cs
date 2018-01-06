@@ -244,5 +244,10 @@ namespace Git_Gud_At_Math
                 this.slValue.Value += zoomSpeed;
             }
         }
+
+        private void NormalDistributionBtn_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }

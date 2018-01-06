@@ -15,7 +15,7 @@ namespace Git_Gud_At_Math.Controls
 
         public static TreeNode Simplify(TreeNode startNode)
         {
-            var tempWorkNode = SimplifySplit(startNode.Clone());
+            var tempWorkNode = SimplifySplit(startNode.Clone()); 
             tempWorkNode = SimplifyCalculations(tempWorkNode.Clone());
 
             return tempWorkNode;

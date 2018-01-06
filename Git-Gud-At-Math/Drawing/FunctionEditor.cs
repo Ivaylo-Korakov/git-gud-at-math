@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Media;
 using Git_Gud_At_Math.Controls;
+using Git_Gud_At_Math.Models;
 using Git_Gud_At_Math.Utilities;
 
 namespace Git_Gud_At_Math.Drawing
@@ -35,9 +36,25 @@ namespace Git_Gud_At_Math.Drawing
             // Calculate the determinant of the coefficient matrix
             double determinant = FunctionCalculator.Determinant(coefMtrx);
 
-            Debug.Print2DMatrix(coefMtrx, true);
-            Console.WriteLine("===");
-            Console.WriteLine(determinant);
+            List<double> yValues = this.FunctionPoints.Select(a => a.Y).ToList();
+            List<double> valuesOfCoef = new List<double>();
+
+            for (int col = 0; col < this.FunctionPoints.Count; col++)
+            {
+                double[,] newMatrix = FunctionCalculator.ReplaceCol((double[,])coefMtrx.Clone(), yValues, col);
+                double newDeterminant = FunctionCalculator.Determinant(newMatrix);
+                valuesOfCoef.Add(newDeterminant / determinant);
+            }
+
+            // Get function tree
+            TreeNode generatedTree = FunctionCalculator.GenerateFumcTreeFromCoefficients(valuesOfCoef);
+            // Create function
+            Function newFunction = new Function(generatedTree);
+
+            // Add Function to the rest
+            this.Window.Controller.AddFunction(newFunction);
+            // Draw the new function
+            this.Painter.DrawFunction(newFunction);
         }
 
         public double[,] GenerateCoefficientMatrix()
@@ -54,7 +71,7 @@ namespace Git_Gud_At_Math.Drawing
                 int power = matrixSize - 1;
                 for (int j = 0; j < this.FunctionPoints.Count; j++)
                 {
-                    matrix[i, j] = Math.Round(Math.Pow(x, power),4);
+                    matrix[i, j] = Math.Pow(x, power);
                     power--;
                 }
             }
