@@ -5,6 +5,7 @@ using System.Windows.Controls;
 using Git_Gud_At_Math.Exceptions;
 using Git_Gud_At_Math.Models;
 using Git_Gud_At_Math.Utilities;
+using Git_Gud_At_Math.Windows;
 using ValueType = Git_Gud_At_Math.Models.ValueType;
 
 namespace Git_Gud_At_Math.Controls.Views
@@ -14,7 +15,6 @@ namespace Git_Gud_At_Math.Controls.Views
         public MainWindow Window { get; private set; }
         public Function CurrentSelectedFunction { get; set; }
         public List<Function> Functions { get; set; }
-        public static Dictionary<string, Window> OpenedFunctionTreeWindows = new Dictionary<string, Window>();
 
         public delegate void NewCalcFunctionDel();
 
@@ -77,26 +77,7 @@ namespace Git_Gud_At_Math.Controls.Views
         {
             if (this.CurrentSelectedFunction != null)
             {
-                // Check if it already exists
-                if (OpenedFunctionTreeWindows.ContainsKey(this.CurrentSelectedFunction.FunctionAsString))
-                {
-                    if (OpenedFunctionTreeWindows[this.CurrentSelectedFunction.FunctionAsString].IsLoaded)
-                    {
-                        OpenedFunctionTreeWindows[this.CurrentSelectedFunction.FunctionAsString].Focus();
-                    }
-                    else
-                    {
-                        TreeGraphWindow newGraphWindow = new TreeGraphWindow(this.CurrentSelectedFunction);
-                        OpenedFunctionTreeWindows[this.CurrentSelectedFunction.FunctionAsString] = newGraphWindow;
-                        newGraphWindow.Show();
-                    }
-                }
-                else
-                {
-                    TreeGraphWindow newGraphWindow = new TreeGraphWindow(this.CurrentSelectedFunction);
-                    OpenedFunctionTreeWindows.Add(this.CurrentSelectedFunction.FunctionAsString, newGraphWindow);
-                    newGraphWindow.Show();
-                }
+                WindowManager.OpenFunctionWindow(this.CurrentSelectedFunction);
             }
         }
     }

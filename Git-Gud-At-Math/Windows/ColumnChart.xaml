@@ -1,0 +1,22 @@
+﻿<UserControl x:Class="Git_Gud_At_Math.Windows.ColumnChart"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Git_Gud_At_Math.Windows"
+             xmlns:wpf="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
+             mc:Ignorable="d" 
+             d:DesignHeight="300" d:DesignWidth="300">
+    <Grid>
+        <wpf:CartesianChart x:Name="CartesianChart" Series="{Binding SeriesCollection}">
+            <wpf:CartesianChart.AxisX>
+                <wpf:Axis Title="Range of numbers" Labels="{Binding Labels}">
+                    
+                </wpf:Axis>
+            </wpf:CartesianChart.AxisX>
+            <wpf:CartesianChart.AxisY>
+                <wpf:Axis Title="Number of times"></wpf:Axis>
+            </wpf:CartesianChart.AxisY>
+        </wpf:CartesianChart>
+    </Grid>
+</UserControl>

@@ -1,0 +1,48 @@
+﻿<Window x:Class="Git_Gud_At_Math.NormalDistribution"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Git_Gud_At_Math"
+        xmlns:wpf="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
+        xmlns:vsc="clr-namespace:Git_Gud_At_Math.Windows"  
+        mc:Ignorable="d" 
+        Title="NormalDistribution" Height="957" Width="1412" ResizeMode="NoResize" Closed="Window_Closed">
+
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="473*"/>
+            <ColumnDefinition Width="933*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.Background>
+            <RadialGradientBrush>
+                <GradientStop Color="#FF2C2C2C" Offset="1"/>
+                <GradientStop Color="#FF343333"/>
+            </RadialGradientBrush>
+        </Grid.Background>
+        <Button x:Name="SimulateBtn" Content="Execute Simulation" HorizontalAlignment="Right" Margin="0,315,15,0" VerticalAlignment="Top" Width="440" Height="38" FontSize="20" FontWeight="Bold" Background="#FF3399FF" Foreground="White" BorderThickness="1,1,1,0" BorderBrush="{x:Null}" Click="SimulateBtn_Click">
+            <Button.Effect>
+                <DropShadowEffect ShadowDepth="0" BlurRadius="10"/>
+            </Button.Effect>
+        </Button>
+        <vsc:ColumnChart x:Name="Test" Margin="42,10,39,484" Grid.Column="1"
+            ></vsc:ColumnChart>
+        <Rectangle Fill="DodgerBlue" HorizontalAlignment="Left" Height="928" StrokeThickness="10" VerticalAlignment="Top" Width="4" Grid.Column="1"/>
+        <Rectangle Fill="#7F061525" HorizontalAlignment="Left" Height="98" VerticalAlignment="Top" Width="473" StrokeThickness="10">
+            <Rectangle.Effect>
+                <DropShadowEffect BlurRadius="50" ShadowDepth="0" RenderingBias="Quality" Direction="316"/>
+            </Rectangle.Effect>
+        </Rectangle>
+        <Label Content="Normal Distribution" HorizontalContentAlignment="Center" HorizontalAlignment="Left" Margin="24,17,0,0" VerticalAlignment="Top" FontSize="36" Foreground="White" Height="58" Width="437"/>
+        <Rectangle Fill="DodgerBlue" HorizontalAlignment="Left" Height="5" Margin="0,97,0,0" StrokeThickness="10" VerticalAlignment="Top" Width="473"/>
+        <TextBox x:Name="DiceSides" HorizontalAlignment="Left" Height="27" Margin="253,172,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="201" FontSize="16" Background="{x:Null}" BorderThickness="2" Foreground="White" Padding="5,0,0,0" FontStyle="Italic" TextDecorations="{x:Null}" BorderBrush="#FF0078D7" Text="6" />
+        <Label Content="Number of dice sides:" HorizontalAlignment="Left" Margin="15,167,0,0" VerticalAlignment="Top" FontSize="18" Foreground="White" Height="35" Width="224"/>
+        <Label Content="Properties:" HorizontalAlignment="Left" Margin="12,114,0,0" VerticalAlignment="Top" FontSize="24" Foreground="White" Height="44" Width="288"/>
+        <Rectangle Fill="DodgerBlue" HorizontalAlignment="Left" Height="2" Margin="18,152,0,0" StrokeThickness="10" VerticalAlignment="Top" Width="436"/>
+        <TextBox x:Name="DicePerGame" HorizontalAlignment="Left" Height="27" Margin="253,221,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="201" FontSize="16" Background="{x:Null}" BorderThickness="2" Foreground="White" Padding="5,0,0,0" FontStyle="Italic" TextDecorations="{x:Null}" BorderBrush="#FF0078D7" Text="6"/>
+        <Label Content="Dices per game:" HorizontalAlignment="Left" Margin="15,216,0,0" VerticalAlignment="Top" FontSize="18" Foreground="White" Height="35" Width="224"/>
+        <TextBox x:Name="NumberOfGames" HorizontalAlignment="Left" Height="27" Margin="253,269,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="201" FontSize="16" Background="{x:Null}" BorderThickness="2" Foreground="White" Padding="5,0,0,0" FontStyle="Italic" TextDecorations="{x:Null}" BorderBrush="#FF0078D7" Text="6"/>
+        <Label Content="Number of games:" HorizontalAlignment="Left" Margin="15,264,0,0" VerticalAlignment="Top" FontSize="18" Foreground="White" Height="35" Width="224"/>
+        <Rectangle Fill="DodgerBlue" HorizontalAlignment="Left" Height="5" Margin="4,453,0,0" StrokeThickness="10" VerticalAlignment="Top" Width="929" Grid.Column="1"/>
+    </Grid>
+</Window>

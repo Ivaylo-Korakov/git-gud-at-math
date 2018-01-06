@@ -9,6 +9,7 @@ using Git_Gud_At_Math.Controls;
 using Git_Gud_At_Math.Controls.Views;
 using Git_Gud_At_Math.Drawing;
 using Git_Gud_At_Math.Models;
+using Git_Gud_At_Math.Windows;
 
 namespace Git_Gud_At_Math
 {
@@ -247,7 +248,7 @@ namespace Git_Gud_At_Math
 
         private void NormalDistributionBtn_Click(object sender, RoutedEventArgs e)
         {
-
+            WindowManager.OpenWindow(new NormalDistribution());
         }
     }
 }
