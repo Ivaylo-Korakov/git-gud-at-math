@@ -1,12 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Windows;
-using System.Windows.Controls;
-using Git_Gud_At_Math.Exceptions;
+﻿using System.Collections.Generic;
 using Git_Gud_At_Math.Models;
-using Git_Gud_At_Math.Utilities;
 using Git_Gud_At_Math.Windows;
-using ValueType = Git_Gud_At_Math.Models.ValueType;
 
 namespace Git_Gud_At_Math.Controls.Views
 {

@@ -1,10 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Shapes;
 using System.Windows.Media;
-using System.Windows.Media.Animation;
 using Git_Gud_At_Math.Models;
 using Git_Gud_At_Math.Utilities;
 

@@ -20,11 +20,15 @@ namespace Git_Gud_At_Math
         public TreeGraphWindow()
         {
             InitializeComponent();
+            // Open window center screen
+            WindowStartupLocation = System.Windows.WindowStartupLocation.CenterScreen;
         }
 
         public TreeGraphWindow(Function functionToGraph) : base()
         {
             InitializeComponent();
+            // Open window center screen
+            WindowStartupLocation = System.Windows.WindowStartupLocation.CenterScreen;
 
             this.FunctionNameAsString = "F(x) = " + functionToGraph.FunctionAsString;
 

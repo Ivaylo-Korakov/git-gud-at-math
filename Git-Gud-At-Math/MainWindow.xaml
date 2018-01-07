@@ -171,5 +171,10 @@
                 <DropShadowEffect ShadowDepth="0" BlurRadius="10"/>
             </Button.Effect>
         </Button>
+        <Button x:Name="Function3D" Content="Open 3D graph" HorizontalAlignment="Left" Margin="18,699,0,0" VerticalAlignment="Top" Width="436" Height="37"  FontSize="20" FontWeight="Bold" Background="#FF3399FF" Foreground="White" BorderThickness="1,1,1,0" BorderBrush="{x:Null}" Grid.Row="1" Grid.Column="1" Click="Function3D_Click">
+            <Button.Effect>
+                <DropShadowEffect ShadowDepth="0" BlurRadius="10"/>
+            </Button.Effect>
+        </Button>
     </Grid>
 </Window> 

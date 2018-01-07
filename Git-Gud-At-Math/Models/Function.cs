@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Media;
+using System.Windows.Media.Media3D;
 using Git_Gud_At_Math.Controls;
 using Git_Gud_At_Math.Utilities;
 
@@ -13,6 +14,7 @@ namespace Git_Gud_At_Math.Models
         public string FunctionAsString { get; set; }
         public TreeNode FunctionTree { get; set; }
         public List<Point> FunctionSolutions { get; set; }
+        public List<List<Point3D>> FunctionSolutions3D { get; set; }
         public double Density => this.CalculateDensity();
         public bool IsSolutionFunction = false;
 
@@ -30,6 +32,7 @@ namespace Git_Gud_At_Math.Models
         public Function()
         {
             this.FunctionSolutions = new List<Point>();
+            this.FunctionSolutions3D = new List<List<Point3D>>();
 
             this.FunctionColor = (Color)ColorConverter.ConvertFromString("#" + ColorGenerator.GetColor.NextColour());
             this.IsVisible = true;
@@ -76,18 +79,38 @@ namespace Git_Gud_At_Math.Models
             Parser.ParseStringToTree(this.FunctionAsString, this.FunctionTree);
             this.FunctionTree = TreeSimplifier.Simplify(this.FunctionTree);
         }
-        
+
         public void Calculate(double startPosition, double endPosition, double density)
         {
             var variables = new Dictionary<string, string>
             {
-                {"x", "0"},
-                {"y", "5"},
+                {"x", "0"}
             };
 
             try
             {
                 this.FunctionSolutions = Calculator.EvaluateFunctionTreeBetween(this.FunctionTree, variables, "x", startPosition, endPosition, density);
+                Debug.PrintTree(this.FunctionTree);
+            }
+            catch (Exception e)
+            {
+                Debug.OutPutError("Something went wrong! Please try again! \n \n" + e);
+            }
+        }
+
+        public void Calculate3D(double startX, double endX, double startY, double endY)
+        {
+            var variables = new Dictionary<string, string>
+            {
+                {"x", "0"},
+                {"y", "0"},
+            };
+
+            double density = 0.1d;
+
+            try
+            {
+                this.FunctionSolutions3D = Calculator.EvaluateFunctionTreeBetween3D(this.FunctionTree, variables, startX, endX, startY, endY, density);
                 Debug.PrintTree(this.FunctionTree);
             }
             catch (Exception e)

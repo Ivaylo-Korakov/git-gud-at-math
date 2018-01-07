@@ -17,6 +17,8 @@ namespace Git_Gud_At_Math
         public NormalDistribution()
         {
             InitializeComponent();
+            // Open window center screen
+            WindowStartupLocation = System.Windows.WindowStartupLocation.CenterScreen;
         }
 
         private void Window_Closed(object sender, EventArgs e)

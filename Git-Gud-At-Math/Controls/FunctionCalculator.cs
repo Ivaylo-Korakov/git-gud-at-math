@@ -1,8 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Git_Gud_At_Math.Models;
 using ValueType = Git_Gud_At_Math.Models.ValueType;
 

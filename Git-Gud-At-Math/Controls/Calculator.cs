@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows;
+using System.Windows.Media.Media3D;
 using Git_Gud_At_Math.Exceptions;
 using Git_Gud_At_Math.Models;
 using Git_Gud_At_Math.Utilities;
@@ -66,7 +67,7 @@ namespace Git_Gud_At_Math.Controls
             {
                 result = CalculateTree(startNodeOfTree);
                 Debug.PrintTree(startNodeOfTree);
-                Debug.OutPutAttention("For: x= "+ variables["x"] + " y= " +  result);
+                Debug.OutPutAttention("For: x= " + variables["x"] + " y= " + result);
 
                 if (double.IsNaN(result) || double.IsInfinity(result))
                 {
@@ -128,6 +129,53 @@ namespace Git_Gud_At_Math.Controls
                     CheckAndAddPoint(new Point(endPoint, result), points);
                 }
                 catch (UnableToCalculateExpressions) { }
+            }
+
+            return points;
+        }
+
+        public static List<List<Point3D>> EvaluateFunctionTreeBetween3D(TreeNode startNodeOfTree, Dictionary<string, string> variables, double startX, double endX, double startY, double endY, double density)
+        {
+            List<List<Point3D>> points = new List<List<Point3D>>();
+
+            density = Math.Abs(density);
+
+            if (startX > endX)
+            {
+                double temp = startX;
+                startX = endX;
+                endX = temp;
+            }
+
+            if (startY > endY)
+            {
+                double temp = startY;
+                startY = endY;
+                endY = temp;
+            }
+
+            for (double xIndex = startX; xIndex <= endX; xIndex += density)
+            {
+                List<Point3D> rowResults = new List<Point3D>();
+
+                for (double yIndex = startY; yIndex <= endY; yIndex += density)
+                {
+                    TreeNode tempTree = startNodeOfTree.Clone();
+                    variables["x"] = xIndex.ToString();
+                    variables["y"] = yIndex.ToString();
+
+                    try
+                    {
+                        double result = EvaluateFunctionTree(tempTree, variables);
+                        rowResults.Add(new Point3D(xIndex, yIndex, result));
+                    }
+                    catch (Exception e)
+                    {
+                        rowResults.Add(new Point3D(xIndex, yIndex, 0));
+                    }
+                }
+
+                points.Add(rowResults);
             }
 
             return points;
@@ -232,31 +280,31 @@ namespace Git_Gud_At_Math.Controls
             List<double> values = new List<double>();
             //try
             //{
-                // Parse values into doubles
-                foreach (var childNode in node.Children)
+            // Parse values into doubles
+            foreach (var childNode in node.Children)
+            {
+                if (Operations.ContainsKey(childNode.Value))
                 {
-                    if (Operations.ContainsKey(childNode.Value))
-                    {
-                        values.Add(Operations[childNode.Value](values));
-                    }
-                    else
-                    {
-                        values.Add(double.Parse(childNode.Value));
-                    }
+                    values.Add(Operations[childNode.Value](values));
                 }
+                else
+                {
+                    values.Add(double.Parse(childNode.Value));
+                }
+            }
 
-                // Invoke a specific function
-                if (Operations.ContainsKey(node.Value))
-                {
-                    result = Operations[node.Value](values);
-                }
+            // Invoke a specific function
+            if (Operations.ContainsKey(node.Value))
+            {
+                result = Operations[node.Value](values);
+            }
             //}
             //catch (Exception)
             //{
             //    string incorectString = node.Value + " ( " + string.Join(",", node.Children) + " )";
             //    throw new UnableToCalculateExpressions("Unable to calculate the parsed tree from the input string", incorectString);
             //}
-            
+
             // Remove double imprecisions with rounding 
             result = Math.Round(result, 4);
             return result;

@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
-using System.Windows.Media;
 using System.Windows.Threading;
 using Git_Gud_At_Math.Controls;
 using Git_Gud_At_Math.Controls.Views;
@@ -26,6 +25,8 @@ namespace Git_Gud_At_Math
         {
             InitializeComponent();
             Dispatcher.BeginInvoke(DispatcherPriority.Loaded, new Action(this.EverythingLoaded));
+            // Open window center screen
+            WindowStartupLocation = System.Windows.WindowStartupLocation.CenterScreen;
 
             this.Painter = new Painter(this);
             this.Controller = new MainViewController(this);
@@ -248,6 +249,11 @@ namespace Git_Gud_At_Math
         private void NormalDistributionBtn_Click(object sender, RoutedEventArgs e)
         {
             WindowManager.OpenWindow(new NormalDistribution());
+        }
+
+        private void Function3D_Click(object sender, RoutedEventArgs e)
+        {
+            WindowManager.OpenWindow(new FunctionView3D());
         }
     }
 }
