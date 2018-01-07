@@ -98,16 +98,14 @@ namespace Git_Gud_At_Math.Models
             }
         }
 
-        public void Calculate3D(double startX, double endX, double startY, double endY)
+        public void Calculate3D(double startX, double endX, double startY, double endY, double density)
         {
             var variables = new Dictionary<string, string>
             {
                 {"x", "0"},
                 {"y", "0"},
             };
-
-            double density = 0.1d;
-
+            
             try
             {
                 this.FunctionSolutions3D = Calculator.EvaluateFunctionTreeBetween3D(this.FunctionTree, variables, startX, endX, startY, endY, density);
