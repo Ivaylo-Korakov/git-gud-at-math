@@ -97,12 +97,7 @@ namespace Git_Gud_At_Math
 
         private double CalculateMean(List<int> numbers)
         {
-            double start = 0;
-            foreach (var item in numbers)
-            {
-                start += item;
-            }
-            return start / numbers.Count;
+            return numbers.Sum() /  (double) numbers.Count;
         }
 
         private void ClearDataBtn_Click(object sender, RoutedEventArgs e)

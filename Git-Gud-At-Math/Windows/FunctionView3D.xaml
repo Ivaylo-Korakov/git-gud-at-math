@@ -66,6 +66,8 @@
         <TextBox x:Name="YEndField" HorizontalAlignment="Right" Height="27" Margin="0,288,16,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="93" FontSize="16" Background="{x:Null}" BorderThickness="2" Foreground="White" Padding="5,0,0,0" FontStyle="Italic" TextDecorations="{x:Null}" BorderBrush="#FF0078D7" Text="10" />
         <TextBox x:Name="DensityField" HorizontalAlignment="Right" Height="27" Margin="0,387,16,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="203" FontSize="16" Background="{x:Null}" BorderThickness="2" Foreground="White" Padding="5,0,0,0" FontStyle="Italic" TextDecorations="{x:Null}" BorderBrush="#FF0078D7" Text="0.1"/>
         <TextBox x:Name="ScaleField" HorizontalAlignment="Right" Height="27" Margin="0,474,16,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="203" FontSize="16" Background="{x:Null}" BorderThickness="2" Foreground="White" Padding="5,0,0,0" FontStyle="Italic" TextDecorations="{x:Null}" BorderBrush="#FF0078D7" Text="100"/>
+        <Label Content="TODO:" HorizontalAlignment="Right" Margin="0,517,10,0" VerticalAlignment="Top" FontSize="24" Foreground="White" Height="45" Width="209"/>
+        <Label Content="1. Make height map&#xD;&#xA;and apply it as a&#xD;&#xA;material on the mesh&#xD;&#xA;&#xD;&#xA;2. Make a dot mesh&#xD;&#xA;structure (from spheres)&#xD;&#xA;and color code them &#xD;&#xA;individually with the&#xD;&#xA;correct color from the&#xD;&#xA;height map" HorizontalAlignment="Right" Margin="0,562,10,0" VerticalAlignment="Top" FontSize="18" Foreground="White" Height="252" Width="209"/>
 
     </Grid>
 </Window>

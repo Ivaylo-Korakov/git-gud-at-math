@@ -255,5 +255,10 @@ namespace Git_Gud_At_Math
         {
             WindowManager.OpenWindow(new FunctionView3D());
         }
+
+        private void MachineLearning_Click(object sender, RoutedEventArgs e)
+        {
+            WindowManager.OpenWindow(new MachineLearning());
+        }
     }
 }

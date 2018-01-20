@@ -97,7 +97,7 @@ namespace Git_Gud_At_Math.Models
                 Debug.OutPutError("Something went wrong! Please try again! \n \n" + e);
             }
         }
-
+        
         public void Calculate3D(double startX, double endX, double startY, double endY, double density)
         {
             var variables = new Dictionary<string, string>

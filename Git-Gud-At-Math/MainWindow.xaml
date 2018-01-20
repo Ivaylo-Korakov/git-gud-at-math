@@ -176,5 +176,10 @@
                 <DropShadowEffect ShadowDepth="0" BlurRadius="10"/>
             </Button.Effect>
         </Button>
+        <Button x:Name="MachineLearning" Content="Machine Learning" HorizontalAlignment="Right" Margin="0,0,36,8" VerticalAlignment="Bottom" Width="322" Height="37" FontSize="20" FontWeight="Bold" Background="#FF3399FF" Foreground="White" BorderThickness="1,1,1,0" BorderBrush="{x:Null}" Grid.Row="1" Click="MachineLearning_Click">
+            <Button.Effect>
+                <DropShadowEffect ShadowDepth="0" BlurRadius="10"/>
+            </Button.Effect>
+        </Button>
     </Grid>
 </Window> 

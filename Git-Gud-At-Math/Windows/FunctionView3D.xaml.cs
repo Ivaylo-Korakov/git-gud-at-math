@@ -23,9 +23,10 @@ namespace Git_Gud_At_Math.Windows
             // -(*(x,^(y,3)),*(y,^(x,3)))
             // /(1,+(^(x,2),^(y,2)))
             // /(s(x),c(y))
-            // ^(+(^(x,2),^(y,2)),0.5) Upside Cone
+            // ^(+(^(x,2),^(y,2)),0.5) Upside Cones
             // /(*(s(*(5,x)),c(*(5,y))),5) Bumps
             // /(s(*(10,+(^(x,2),^(y,2)))),10)
+            // -(-(0,^(x,2)),^(y,2)) 
 
             FunctionModels = new List<ModelVisual3D>();
         }
@@ -74,29 +75,15 @@ namespace Git_Gud_At_Math.Windows
                     Point3D pointD = function3D.FunctionSolutions3D[xIndex + 1][yIndex + 1];
                     pointD.Z = pointD.Z / scale;
 
-                    List<Point3D> points = new List<Point3D>();
-                    points.Add(pointA);
-                    points.Add(pointB);
-                    points.Add(pointC);
-
-                    List<Point3D> points2 = new List<Point3D>();
-                    points2.Add(pointC);
-                    points2.Add(pointB);
-                    points2.Add(pointD);
+                    List<Point3D> points = new List<Point3D> {pointA, pointB, pointC};
+                    List<Point3D> points2 = new List<Point3D> {pointC, pointB, pointD};
 
                     meshBuilder.AddPolygon(points);
                     meshBuilder.AddPolygon(points2);
 
-                    List<Point3D> points3 = new List<Point3D>();
-                    points3.Add(pointB);
-                    points3.Add(pointC);
-                    points3.Add(pointD);
+                    List<Point3D> points3 = new List<Point3D> {pointB, pointC, pointD};
+                    List<Point3D> points4 = new List<Point3D> {pointB, pointA, pointC};
 
-                    List<Point3D> points4 = new List<Point3D>();
-                    points4.Add(pointB);
-                    points4.Add(pointA);
-                    points4.Add(pointC);
-                    
                     meshBuilder.AddPolygon(points3);
                     meshBuilder.AddPolygon(points4);
                 }

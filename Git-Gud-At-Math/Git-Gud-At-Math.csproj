@@ -79,6 +79,8 @@
     <Compile Include="Controls\DiceRoller.cs" />
     <Compile Include="Controls\FunctionCalculator.cs" />
     <Compile Include="Controls\IntegralCalculator.cs" />
+    <Compile Include="Controls\MachineLearning\MachineLearningCalculator.cs" />
+    <Compile Include="Controls\MachineLearning\TrainingData.cs" />
     <Compile Include="Controls\SeriesCalculator.cs" />
     <Compile Include="Controls\TreeSimplifier.cs" />
     <Compile Include="Controls\Views\MainViewController.cs" />
@@ -96,6 +98,9 @@
     </Compile>
     <Compile Include="Windows\LineChart.xaml.cs">
       <DependentUpon>LineChart.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\MachineLearning.xaml.cs">
+      <DependentUpon>MachineLearning.xaml</DependentUpon>
     </Compile>
     <Compile Include="Windows\NormalDistribution.xaml.cs">
       <DependentUpon>NormalDistribution.xaml</DependentUpon>
@@ -129,6 +134,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Windows\LineChart.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\MachineLearning.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -170,9 +179,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Image1.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

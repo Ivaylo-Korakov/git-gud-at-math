@@ -5,6 +5,7 @@ using System.Windows.Shapes;
 using System.Windows.Media;
 using Git_Gud_At_Math.Models;
 using Git_Gud_At_Math.Utilities;
+using Git_Gud_At_Math.Windows;
 
 namespace Git_Gud_At_Math.Drawing
 {
@@ -12,6 +13,7 @@ namespace Git_Gud_At_Math.Drawing
     {
         public Canvas Canvas { get; private set; }
         public MainWindow Window { get; private set; }
+        public MachineLearning MlWindow { get; private set; }
         public double CanvasScale = 40;
         public int CanvasMinValue => -500 / (int) this.CanvasScale;
         public int CanvasMaxValue => 500 / (int) this.CanvasScale;
@@ -29,6 +31,13 @@ namespace Git_Gud_At_Math.Drawing
             this.Window = mainWindow;
             this.Canvas = this.Window.Canvas;
             this.ResetCanvas();
+        }
+
+        public Painter(MachineLearning machineLearningWindow)
+        {
+            //            this.MlWindow = machineLearningWindow;
+            //            this.Canvas = this.MlWindow.Canvas;
+            //            this.ResetCanvas();
         }
 
         public void DrawGrid()
